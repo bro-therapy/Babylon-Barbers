@@ -268,11 +268,11 @@ nav.scrolled{
 }
 .service-card:hover::before{opacity:1}
 .service-card-icon{
-  width:52px;height:52px;border-radius:14px;
+  width:100%;height:180px;border-radius:12px;
+  overflow:hidden;margin-bottom:24px;
   background:rgba(201,162,77,0.08);border:1px solid rgba(201,162,77,0.15);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;margin-bottom:24px;
 }
+.service-card-icon img{width:100%;height:100%;object-fit:cover}
 .service-card h3{
   font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;
   margin-bottom:12px;
@@ -516,7 +516,7 @@ footer{
 
 <!-- ═══════════════ NAV ═══════════════ -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">Babylon Barbers</a>
+  <a href="#" class="nav-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:40,cg:true,m/qt=q:95" alt="Babylon Barbers" style="height:36px;filter:brightness(10)"></a>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#services">Services</a>
@@ -610,8 +610,7 @@ footer{
       <div class="about-image-col reveal-right">
         <div class="about-image">
           <div class="about-image-inner">
-            <div class="big-icon">✂️</div>
-            <div class="img-text">Est. Cherry Hill, NJ</div>
+            <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:800,h:1000,cg:true" alt="Babylon Barbers Premium Haircut" style="width:100%;height:100%;object-fit:cover">
           </div>
         </div>
         <div class="floating-badge" style="animation:float 4s ease-in-out infinite">
@@ -637,37 +636,37 @@ footer{
     </div>
     <div class="services-grid">
       <div class="service-card reveal" style="transition-delay:0.05s">
-        <div class="service-card-icon">✂️</div>
+        <div class="service-card-icon"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:20.21%25,l:14.93%25,w:80.65%25,h:45.48%25/rs=w:600,h:400,cg:true" alt="Premium Haircut"></div>
         <h3>Premium Haircut</h3>
         <p>Your choice on top, tightly faded to the neckline. Straight blade lines, finished with a wash and style.</p>
         <div class="service-price-tag">$55</div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.1s">
-        <div class="service-card-icon">💈</div>
+        <div class="service-card-icon"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:30.78%25,l:0%25,w:100%25,h:51.84%25/rs=w:600,h:400,cg:true" alt="Standard Haircut"></div>
         <h3>Standard Haircut</h3>
         <p>Clean cut sides without fading. Scissors on top, finished with a hair wash and styled to perfection.</p>
         <div class="service-price-tag">$50</div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.15s">
-        <div class="service-card-icon">🪒</div>
+        <div class="service-card-icon"><img src="https://img1.wsimg.com/isteam/stock/1865/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:400,cg:true" alt="Wet Shave"></div>
         <h3>Wet Shave</h3>
         <p>A classic clean shave with two hot towels, finished with a cool towel for a refreshing experience.</p>
         <div class="service-price-tag">$50</div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.2s">
-        <div class="service-card-icon">🧔</div>
+        <div class="service-card-icon"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/cr=t:0%25,l:5.69%25,w:88.61%25,h:100%25/rs=w:600,h:400,cg:true" alt="Beard Clean Up"></div>
         <h3>Beard Clean Up</h3>
         <p>Taming and reshaping for longer or shorter beards. Hot towel and razor outline edging included.</p>
         <div class="service-price-tag">$20 <span>– $30</span></div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.25s">
-        <div class="service-card-icon">👦</div>
+        <div class="service-card-icon"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/cr=t:10.07%25,l:7.63%25,w:84.75%25,h:63.56%25/rs=w:600,h:400,cg:true" alt="Kids Cut"></div>
         <h3>Kids Cut & Fade</h3>
         <p>Patient, welcoming cuts for the young kings. Standard or faded — both finished with a wash and style.</p>
         <div class="service-price-tag">$35 <span>– $45</span></div>
       </div>
       <div class="service-card reveal" style="transition-delay:0.3s">
-        <div class="service-card-icon">🧖</div>
+        <div class="service-card-icon"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/cr=t:0%25,l:11.39%25,w:77.21%25,h:99.99%25/rs=w:600,h:400,cg:true" alt="Facials"></div>
         <h3>Facials & Massage</h3>
         <p>Deep cleanse, custom masks, extractions, and full-body massage therapy. True self-care for men.</p>
         <div class="service-price-tag">$40 <span>– $100</span></div>
@@ -691,7 +690,7 @@ footer{
     </div>
     <div class="team-grid">
       <div class="team-card reveal" style="transition-delay:0.05s">
-        <div class="team-photo"><span class="team-initial">Mo</span></div>
+        <div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,h:600,cg:true" alt="Mohammed" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1"></div>
         <div class="team-info">
           <h3 class="team-name">Mohammed</h3>
           <p class="team-role-tag">Owner & Founder</p>
@@ -699,7 +698,7 @@ footer{
         </div>
       </div>
       <div class="team-card reveal" style="transition-delay:0.1s">
-        <div class="team-photo"><span class="team-initial">Ri</span></div>
+        <div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:600,h:600,cg:true,m" alt="Richie" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1"></div>
         <div class="team-info">
           <h3 class="team-name">Richie</h3>
           <p class="team-role-tag">Senior Barber · 7+ Years</p>
@@ -707,7 +706,7 @@ footer{
         </div>
       </div>
       <div class="team-card reveal" style="transition-delay:0.15s">
-        <div class="team-photo"><span class="team-initial">Le</span></div>
+        <div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:600,cg:true" alt="Leigh" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1"></div>
         <div class="team-info">
           <h3 class="team-name">Leigh</h3>
           <p class="team-role-tag">Senior Stylist · 17 Years</p>
@@ -715,7 +714,7 @@ footer{
         </div>
       </div>
       <div class="team-card reveal" style="transition-delay:0.2s">
-        <div class="team-photo"><span class="team-initial">Jay</span></div>
+        <div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:0%25,l:5.66%25,w:88.68%25,h:100%25/rs=w:600,h:600,cg:true" alt="Jay" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1"></div>
         <div class="team-info">
           <h3 class="team-name">Jay</h3>
           <p class="team-role-tag">Barber · Rising Talent</p>
@@ -819,7 +818,7 @@ footer{
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
-  <div class="footer-logo">Babylon Barbers</div>
+  <div class="footer-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:60,cg:true,m/qt=q:95" alt="Babylon Barbers" style="height:50px"></div>
   <div class="footer-social">
     <a href="https://www.instagram.com/babylon_barbers/" class="social-circle" title="Instagram">📷</a>
     <a href="https://www.facebook.com/BabylonBarbersCherryHill/" class="social-circle" title="Facebook">👤</a>
