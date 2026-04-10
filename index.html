@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Babylon Barbers — Cherry Hill, NJ</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --gold:#C9A24D;
+  --gold-light:#E4CE8A;
+  --gold-dark:#A07B2C;
+  --cream:#F5F0E8;
+  --cream-dark:#E8E0D0;
+  --bg:#060606;
+  --bg-warm:#0C0A08;
+  --text:#F2EDE4;
+  --text-dim:#8A8279;
+  --text-muted:#5A554E;
+  --surface:#111110;
+  --surface-light:#1A1918;
+  --border:rgba(201,162,77,0.12);
+  --border-hover:rgba(201,162,77,0.3);
+  --radius:16px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --ease-out:cubic-bezier(0,0,0.2,1);
+}
+
+html{
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:var(--gold-dark) var(--bg);
+}
+
+body{
+  font-family:'Syne',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════ NAV ═══════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:24px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all 0.5s var(--ease);
+  mix-blend-mode:difference;
+}
+nav.scrolled{
+  background:rgba(6,6,6,0.85);
+  backdrop-filter:blur(24px) saturate(1.4);
+  padding:16px 48px;
+  mix-blend-mode:normal;
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Instrument Serif',serif;
+  font-size:22px;color:#fff;
+  text-decoration:none;letter-spacing:1px;
+}
+.nav-links{display:flex;gap:36px;align-items:center;}
+.nav-links a{
+  font-size:12px;letter-spacing:2.5px;text-transform:uppercase;
+  color:#fff;text-decoration:none;font-weight:500;
+  position:relative;transition:opacity 0.3s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;
+  background:var(--gold);transition:width 0.4s var(--ease);
+}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{opacity:0.85}
+.nav-cta{
+  background:var(--gold)!important;color:var(--bg)!important;
+  padding:10px 28px;border-radius:100px;font-weight:700;
+  letter-spacing:1.5px!important;font-size:11px!important;
+  transition:transform 0.3s var(--ease),box-shadow 0.3s;
+}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(201,162,77,0.3)}
+
+/* ═══════════════════════════════ HERO ═══════════════════════════════ */
+.hero{
+  position:relative;height:100vh;min-height:700px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,162,77,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 70% 60%, rgba(201,162,77,0.04) 0%, transparent 60%),
+    var(--bg);
+}
+.hero-grain{
+  position:absolute;inset:0;opacity:0.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-lines{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none;
+}
+.hero-line{
+  position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,162,77,0.08),transparent);
+  height:120%;top:-10%;
+}
+.hero-line:nth-child(1){left:20%}
+.hero-line:nth-child(2){left:40%}
+.hero-line:nth-child(3){left:60%}
+.hero-line:nth-child(4){left:80%}
+
+.hero-content{
+  position:relative;z-index:2;text-align:center;
+  padding:0 24px;
+}
+.hero-tag{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:5px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:32px;
+  opacity:0;animation:fadeUp 1s 0.3s var(--ease) forwards;
+}
+.hero-title{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(56px,10vw,140px);
+  line-height:0.92;font-weight:400;
+  letter-spacing:-2px;
+  opacity:0;animation:fadeUp 1s 0.5s var(--ease) forwards;
+}
+.hero-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  max-width:460px;margin:28px auto 0;font-size:15px;line-height:1.7;
+  color:var(--text-dim);font-weight:400;
+  opacity:0;animation:fadeUp 1s 0.7s var(--ease) forwards;
+}
+.hero-actions{
+  margin-top:44px;display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 1s 0.9s var(--ease) forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--gold);color:var(--bg);
+  padding:16px 40px;border-radius:100px;text-decoration:none;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  transition:all 0.4s var(--ease);border:none;cursor:pointer;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,162,77,0.25)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;color:var(--text);
+  padding:16px 40px;border-radius:100px;text-decoration:none;
+  font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  border:1px solid var(--border-hover);
+  transition:all 0.4s var(--ease);cursor:pointer;
+}
+.btn-secondary:hover{background:rgba(255,255,255,0.04);border-color:var(--gold)}
+
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fadeUp 1s 1.2s var(--ease) forwards;
+}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite}
+.scroll-text{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ═══════════════════════════════ MARQUEE ═══════════════════════════════ */
+.marquee-section{
+  padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  overflow:hidden;background:var(--bg);
+}
+.marquee-track{
+  display:flex;gap:60px;animation:marquee 25s linear infinite;
+  width:max-content;
+}
+.marquee-item{
+  font-family:'Instrument Serif',serif;font-size:20px;
+  color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:20px;
+}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0.5}
+
+/* ═══════════════════════════════ ABOUT ═══════════════════════════════ */
+.section{padding:140px 48px;position:relative}
+.section-inner{max-width:1200px;margin:0 auto}
+
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+}
+.about-tag{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:20px;
+}
+.about-title{
+  font-family:'Instrument Serif',serif;font-size:clamp(36px,5vw,60px);
+  line-height:1.05;font-weight:400;margin-bottom:28px;
+}
+.about-text{
+  font-size:15px;line-height:1.85;color:var(--text-dim);max-width:500px;
+}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px;
+}
+.stat-item{
+  padding:28px;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);transition:all 0.4s var(--ease);
+}
+.stat-item:hover{border-color:var(--border-hover);transform:translateY(-3px)}
+.stat-number{
+  font-family:'Instrument Serif',serif;font-size:42px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:6px}
+
+.about-image-col{position:relative}
+.about-image{
+  width:100%;aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;
+  background:var(--surface);border:1px solid var(--border);position:relative;
+}
+.about-image-inner{
+  width:100%;height:100%;
+  background:
+    linear-gradient(160deg,rgba(201,162,77,0.08) 0%,transparent 50%),
+    linear-gradient(to bottom,var(--surface-light),var(--surface));
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;
+}
+.about-image-inner .big-icon{font-size:80px;opacity:0.15}
+.about-image-inner .img-text{
+  font-family:'Instrument Serif',serif;font-size:28px;color:var(--text-muted);
+  opacity:0.4;
+}
+.floating-badge{
+  position:absolute;bottom:-20px;right:-20px;
+  background:var(--gold);color:var(--bg);
+  padding:20px 28px;border-radius:var(--radius);
+  font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  box-shadow:0 16px 48px rgba(201,162,77,0.3);
+}
+
+/* ═══════════════════════════════ SERVICES ═══════════════════════════════ */
+.services-section{background:var(--bg-warm)}
+.services-header{text-align:center;margin-bottom:80px}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.service-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:40px 32px;
+  position:relative;overflow:hidden;
+  transition:all 0.5s var(--ease);
+}
+.service-card:hover{
+  border-color:var(--border-hover);transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity 0.5s;
+}
+.service-card:hover::before{opacity:1}
+.service-card-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(201,162,77,0.08);border:1px solid rgba(201,162,77,0.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:24px;
+}
+.service-card h3{
+  font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;
+  margin-bottom:12px;
+}
+.service-card p{
+  font-size:13.5px;line-height:1.7;color:var(--text-dim);margin-bottom:20px;
+}
+.service-price-tag{
+  font-family:'Space Mono',monospace;font-size:20px;font-weight:700;
+  color:var(--gold);
+}
+.service-price-tag span{font-size:12px;color:var(--text-muted);font-weight:400;margin-left:4px}
+
+/* ═══════════════════════════════ PARALLAX DIVIDER ═══════════════════════════════ */
+.parallax-divider{
+  height:45vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.parallax-bg{
+  position:absolute;inset:-20%;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(201,162,77,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 50%, rgba(201,162,77,0.05) 0%, transparent 50%),
+    var(--bg);
+}
+.parallax-text{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(40px,8vw,100px);
+  font-style:italic;
+  color:rgba(201,162,77,0.08);
+  white-space:nowrap;
+  position:relative;z-index:1;
+  user-select:none;
+}
+
+/* ═══════════════════════════════ TEAM ═══════════════════════════════ */
+.team-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+.team-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  transition:all 0.5s var(--ease);position:relative;
+}
+.team-card:hover{
+  border-color:var(--border-hover);transform:translateY(-6px);
+  box-shadow:0 24px 64px rgba(0,0,0,0.3);
+}
+.team-photo{
+  width:100%;aspect-ratio:1;
+  background:linear-gradient(135deg,var(--surface-light),var(--surface));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.team-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,var(--surface) 0%,transparent 50%);
+}
+.team-initial{
+  font-family:'Instrument Serif',serif;font-size:72px;
+  background:linear-gradient(135deg,rgba(201,162,77,0.15),rgba(201,162,77,0.05));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  position:relative;z-index:1;
+}
+.team-info{padding:24px 24px 28px}
+.team-name{
+  font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;
+  margin-bottom:4px;
+}
+.team-role-tag{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);
+}
+.team-desc{
+  font-size:13px;line-height:1.7;color:var(--text-dim);margin-top:12px;
+}
+
+/* ═══════════════════════════════ REVIEWS ═══════════════════════════════ */
+.reviews-section{background:var(--bg-warm)}
+.reviews-track{
+  display:flex;gap:24px;overflow-x:auto;padding-bottom:20px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.reviews-track::-webkit-scrollbar{display:none}
+.review-card{
+  min-width:380px;max-width:420px;flex-shrink:0;scroll-snap-align:start;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:36px;
+  transition:all 0.4s var(--ease);
+}
+.review-card:hover{border-color:var(--border-hover)}
+.review-stars-row{color:var(--gold);font-size:16px;letter-spacing:4px;margin-bottom:20px}
+.review-quote{
+  font-family:'Instrument Serif',serif;font-size:17px;line-height:1.65;
+  font-style:italic;color:var(--text);margin-bottom:20px;
+}
+.review-meta{font-size:12px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase}
+
+/* ═══════════════════════════════ HOURS / CTA ═══════════════════════════════ */
+.hours-cta-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;
+}
+.hours-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:48px;
+}
+.hours-table{width:100%}
+.hours-row-item{
+  display:flex;justify-content:space-between;padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.hours-row-item:last-child{border-bottom:none}
+.hours-day{font-size:14px;font-weight:500}
+.hours-time{font-family:'Space Mono',monospace;font-size:13px;color:var(--text-dim)}
+.hours-closed{color:#e45;font-weight:500;font-size:13px}
+
+.cta-block{
+  background:linear-gradient(160deg,rgba(201,162,77,0.08),rgba(201,162,77,0.02));
+  border:1px solid var(--border);
+  border-radius:var(--radius);padding:60px 48px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-block::before{
+  content:'';position:absolute;top:-50%;right:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(circle,rgba(201,162,77,0.04),transparent 60%);
+  animation:slowSpin 30s linear infinite;
+}
+.cta-block h2{
+  font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;
+  margin-bottom:16px;position:relative;z-index:1;
+}
+.cta-block p{
+  font-size:15px;color:var(--text-dim);margin-bottom:36px;
+  position:relative;z-index:1;max-width:360px;margin-left:auto;margin-right:auto;
+  line-height:1.7;
+}
+.cta-apps{
+  display:flex;gap:12px;justify-content:center;margin-top:20px;position:relative;z-index:1;
+}
+.app-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;border-radius:100px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  font-size:12px;font-weight:600;color:var(--text);text-decoration:none;
+  transition:all 0.3s var(--ease);letter-spacing:0.5px;
+}
+.app-badge:hover{background:rgba(255,255,255,0.1);border-color:var(--gold)}
+
+/* ═══════════════════════════════ MAP / CONTACT ═══════════════════════════════ */
+.contact-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+}
+.contact-item{
+  padding:48px 36px;text-align:center;
+  border-right:1px solid var(--border);
+  transition:background 0.3s;
+}
+.contact-item:last-child{border-right:none}
+.contact-item:hover{background:var(--surface)}
+.contact-icon{font-size:24px;margin-bottom:12px;opacity:0.6}
+.contact-label{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:8px;
+}
+.contact-value{font-size:14px;font-weight:600;color:var(--text)}
+.contact-value a{color:var(--gold);text-decoration:none}
+
+/* ═══════════════════════════════ FOOTER ═══════════════════════════════ */
+footer{
+  padding:60px 48px;text-align:center;
+  border-top:1px solid var(--border);
+}
+.footer-logo{
+  font-family:'Instrument Serif',serif;font-size:28px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:20px;
+}
+.footer-links{
+  display:flex;gap:32px;justify-content:center;margin-bottom:24px;
+}
+.footer-links a{
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-muted);text-decoration:none;transition:color 0.3s;
+}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:12px;color:var(--text-muted);font-family:'Space Mono',monospace}
+.footer-social{display:flex;gap:16px;justify-content:center;margin:20px 0}
+.social-circle{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:16px;text-decoration:none;transition:all 0.3s var(--ease);
+}
+.social-circle:hover{border-color:var(--gold);background:rgba(201,162,77,0.08)}
+
+/* ═══════════════════════════════ SCROLL ANIMATIONS ═══════════════════════════════ */
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.9s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:all 0.9s var(--ease)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:all 0.9s var(--ease)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(0.94);transition:all 0.9s var(--ease)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+
+/* ═══════════════════════════════ KEYFRAMES ═══════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scrollPulse{0%,100%{opacity:1;height:48px}50%{opacity:0.3;height:32px}}
+@keyframes slowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* ═══════════════════════════════ MOBILE ═══════════════════════════════ */
+@media(max-width:1024px){
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .hours-cta-grid{grid-template-columns:1fr}
+  .contact-bar{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .section{padding:80px 24px}
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .services-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .contact-bar{grid-template-columns:1fr}
+  .contact-item{border-right:none;border-bottom:1px solid var(--border)}
+  .review-card{min-width:300px}
+  .hero-title{letter-spacing:-1px}
+  .cta-apps{flex-direction:column;align-items:center}
+  footer{padding:40px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Babylon Barbers</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#team">Team</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#hours">Hours</a>
+    <a href="https://babylonbookings.com/app" class="nav-cta">Book Now</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-lines">
+    <div class="hero-line" data-parallax-speed="0.02"></div>
+    <div class="hero-line" data-parallax-speed="0.04"></div>
+    <div class="hero-line" data-parallax-speed="0.03"></div>
+    <div class="hero-line" data-parallax-speed="0.05"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-tag">Cherry Hill, New Jersey</p>
+    <h1 class="hero-title">Where Craft<br>Meets <em>Culture</em></h1>
+    <p class="hero-sub">Premium fades, precision grooming, and an atmosphere built for kings. Walk in a client — leave as family.</p>
+    <div class="hero-actions">
+      <a href="https://babylonbookings.com/app" class="btn-primary">Book Your Cut →</a>
+      <a href="#services" class="btn-secondary">View Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ═══════════════ MARQUEE ═══════════════ -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="reveal-left">
+        <p class="about-tag">Our Story</p>
+        <h2 class="about-title">Built on Precision.<br>Defined by Culture.</h2>
+        <p class="about-text">
+          Babylon Barbers is a premium barbershop in the heart of Cherry Hill, NJ. Founded by Mohammed — an engineer-turned-barber who's been behind the chair since age 15 — we bring an obsessive attention to detail and a love for the craft to every single cut.
+        </p>
+        <p class="about-text" style="margin-top:16px">
+          Every haircut includes a refreshing wash, blow-dry, and style. Beard services come with hot towels, premium shaving gel, and precision razor work. This isn't a barbershop — it's an experience.
+        </p>
+        <div class="about-stats">
+          <div class="stat-item reveal" style="transition-delay:0.1s">
+            <div class="stat-number">5.0</div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+          <div class="stat-item reveal" style="transition-delay:0.2s">
+            <div class="stat-number">231+</div>
+            <div class="stat-label">5-Star Reviews</div>
+          </div>
+          <div class="stat-item reveal" style="transition-delay:0.3s">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Years Combined Exp</div>
+          </div>
+          <div class="stat-item reveal" style="transition-delay:0.4s">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Expert Barbers</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-col reveal-right">
+        <div class="about-image">
+          <div class="about-image-inner">
+            <div class="big-icon">✂️</div>
+            <div class="img-text">Est. Cherry Hill, NJ</div>
+          </div>
+        </div>
+        <div class="floating-badge" style="animation:float 4s ease-in-out infinite">
+          ★ Perfect 5.0 Rating
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PARALLAX DIVIDER ═══════════════ -->
+<div class="parallax-divider" data-parallax>
+  <div class="parallax-bg" data-parallax-bg></div>
+  <div class="parallax-text" data-parallax-text>Precision · Culture · Excellence · Craft</div>
+</div>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section class="section services-section" id="services">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <p class="about-tag" style="text-align:center">Our Services</p>
+      <h2 class="about-title" style="text-align:center">Premium Grooming,<br>Every Detail.</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" style="transition-delay:0.05s">
+        <div class="service-card-icon">✂️</div>
+        <h3>Premium Haircut</h3>
+        <p>Your choice on top, tightly faded to the neckline. Straight blade lines, finished with a wash and style.</p>
+        <div class="service-price-tag">$55</div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <div class="service-card-icon">💈</div>
+        <h3>Standard Haircut</h3>
+        <p>Clean cut sides without fading. Scissors on top, finished with a hair wash and styled to perfection.</p>
+        <div class="service-price-tag">$50</div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.15s">
+        <div class="service-card-icon">🪒</div>
+        <h3>Wet Shave</h3>
+        <p>A classic clean shave with two hot towels, finished with a cool towel for a refreshing experience.</p>
+        <div class="service-price-tag">$50</div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.2s">
+        <div class="service-card-icon">🧔</div>
+        <h3>Beard Clean Up</h3>
+        <p>Taming and reshaping for longer or shorter beards. Hot towel and razor outline edging included.</p>
+        <div class="service-price-tag">$20 <span>– $30</span></div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.25s">
+        <div class="service-card-icon">👦</div>
+        <h3>Kids Cut & Fade</h3>
+        <p>Patient, welcoming cuts for the young kings. Standard or faded — both finished with a wash and style.</p>
+        <div class="service-price-tag">$35 <span>– $45</span></div>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.3s">
+        <div class="service-card-icon">🧖</div>
+        <h3>Facials & Massage</h3>
+        <p>Deep cleanse, custom masks, extractions, and full-body massage therapy. True self-care for men.</p>
+        <div class="service-price-tag">$40 <span>– $100</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PARALLAX DIVIDER 2 ═══════════════ -->
+<div class="parallax-divider" data-parallax>
+  <div class="parallax-bg" data-parallax-bg></div>
+  <div class="parallax-text" data-parallax-text>Fades · Beards · Facials · Massage · Threading</div>
+</div>
+
+<!-- ═══════════════ TEAM ═══════════════ -->
+<section class="section" id="team">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <p class="about-tag" style="text-align:center">The Artists</p>
+      <h2 class="about-title" style="text-align:center">Meet the Team<br>Behind the Chair.</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal" style="transition-delay:0.05s">
+        <div class="team-photo"><span class="team-initial">Mo</span></div>
+        <div class="team-info">
+          <h3 class="team-name">Mohammed</h3>
+          <p class="team-role-tag">Owner & Founder</p>
+          <p class="team-desc">Drexel Engineering grad who traded blueprints for clippers at 15. His precision and love for the craft built Babylon from the ground up.</p>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.1s">
+        <div class="team-photo"><span class="team-initial">Ri</span></div>
+        <div class="team-info">
+          <h3 class="team-name">Richie</h3>
+          <p class="team-role-tag">Senior Barber · 7+ Years</p>
+          <p class="team-desc">From Bergen County to South Jersey, Richie's mastered every texture. Specializes in razor-sharp bald fades that speak for themselves.</p>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.15s">
+        <div class="team-photo"><span class="team-initial">Le</span></div>
+        <div class="team-info">
+          <h3 class="team-name">Leigh</h3>
+          <p class="team-role-tag">Senior Stylist · 17 Years</p>
+          <p class="team-desc">Nearly two decades in a male-dominated industry only fueled her fire. Leigh lets her clippers do the talking — and clients can't stop raving.</p>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:0.2s">
+        <div class="team-photo"><span class="team-initial">Jay</span></div>
+        <div class="team-info">
+          <h3 class="team-name">Jay</h3>
+          <p class="team-role-tag">Barber · Rising Talent</p>
+          <p class="team-desc">The youngest and first female barber to join the crew. Lehigh Valley trained with an unwavering passion that sharpens with every cut.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ REVIEWS ═══════════════ -->
+<section class="section reviews-section" id="reviews">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <p class="about-tag" style="text-align:center">Testimonials</p>
+      <h2 class="about-title" style="text-align:center">What Our Clients<br>Are Saying.</h2>
+    </div>
+    <div class="reviews-track reveal">
+      <div class="review-card">
+        <div class="review-stars-row">★ ★ ★ ★ ★</div>
+        <p class="review-quote">"I walked in with no appointment and they took me immediately. Leigh absolutely crushed it — so attentive to my needs. I left with the confidence of a proud peacock."</p>
+        <p class="review-meta">Walk-In Client · Google Review</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars-row">★ ★ ★ ★ ★</div>
+        <p class="review-quote">"Consistently professional, friendly, and precise with every cut. Always listens to what I'm after and delivers exactly that. Highly recommend both the shop and Leigh."</p>
+        <p class="review-meta">Returning Client · Google Review</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars-row">★ ★ ★ ★ ★</div>
+        <p class="review-quote">"Met the owner Mohammad and Richie — they fit me in despite no appointment. One of the best cuts I've received. The environment and service were second to none!"</p>
+        <p class="review-meta">Visiting Client · Google Review</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars-row">★ ★ ★ ★ ★</div>
+        <p class="review-quote">"My son and I both get our haircuts here and we consistently leave impressed. Most importantly — the wife is very happy with the results! Highly recommend."</p>
+        <p class="review-meta">Family Client · Google Review</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars-row">★ ★ ★ ★ ★</div>
+        <p class="review-quote">"The spot is so clean, the music is amazing, and everyone is super friendly. My partner said it was the best cut he's gotten. We will definitely be back!"</p>
+        <p class="review-meta">Convention Visitor · Google Review</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOURS & CTA ═══════════════ -->
+<section class="section" id="hours">
+  <div class="section-inner">
+    <div class="hours-cta-grid">
+      <div class="hours-card reveal-left">
+        <p class="about-tag">Operating Hours</p>
+        <h2 class="about-title" style="font-size:32px;margin-bottom:32px">When to<br>Find Us.</h2>
+        <div class="hours-table">
+          <div class="hours-row-item"><span class="hours-day">Monday</span><span class="hours-closed">Closed</span></div>
+          <div class="hours-row-item"><span class="hours-day">Tuesday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
+          <div class="hours-row-item"><span class="hours-day">Wednesday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
+          <div class="hours-row-item"><span class="hours-day">Thursday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
+          <div class="hours-row-item"><span class="hours-day">Friday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
+          <div class="hours-row-item"><span class="hours-day">Saturday</span><span class="hours-time">8:00 AM — 6:00 PM</span></div>
+          <div class="hours-row-item"><span class="hours-day">Sunday</span><span class="hours-closed">Closed</span></div>
+        </div>
+      </div>
+      <div class="cta-block reveal-right">
+        <h2>Ready for Your<br>Best Cut Yet?</h2>
+        <p>Book your appointment instantly through our app or website. Walk-ins are always welcome based on availability.</p>
+        <a href="https://babylonbookings.com/app" class="btn-primary" style="margin-bottom:16px">Book Now →</a>
+        <div class="cta-apps">
+          <a href="https://apps.apple.com/us/app/babylon-bookings/id6465520067" class="app-badge">📱 App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.babylonbookings.babylonbookings" class="app-badge">▶️ Google Play</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT BAR ═══════════════ -->
+<div class="contact-bar">
+  <div class="contact-item reveal" style="transition-delay:0.05s">
+    <div class="contact-icon">📍</div>
+    <div class="contact-label">Address</div>
+    <div class="contact-value">484 E Evesham Rd, Ste 6<br>Cherry Hill, NJ 08003</div>
+  </div>
+  <div class="contact-item reveal" style="transition-delay:0.1s">
+    <div class="contact-icon">📞</div>
+    <div class="contact-label">Call Us</div>
+    <div class="contact-value"><a href="tel:8562952244">(856) 295-2244</a></div>
+  </div>
+  <div class="contact-item reveal" style="transition-delay:0.15s">
+    <div class="contact-icon">🌐</div>
+    <div class="contact-label">Website</div>
+    <div class="contact-value"><a href="https://babylonbarbers.com">babylonbarbers.com</a></div>
+  </div>
+  <div class="contact-item reveal" style="transition-delay:0.2s">
+    <div class="contact-icon">♿</div>
+    <div class="contact-label">Accessibility</div>
+    <div class="contact-value">Wheelchair Accessible<br>ADA-Compliant Entrance</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-logo">Babylon Barbers</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/babylon_barbers/" class="social-circle" title="Instagram">📷</a>
+    <a href="https://www.facebook.com/BabylonBarbersCherryHill/" class="social-circle" title="Facebook">👤</a>
+    <a href="https://www.yelp.com/biz/babylon-barber-cherry-hill-2" class="social-circle" title="Yelp">⭐</a>
+  </div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#team">Team</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#hours">Hours</a>
+  </div>
+  <p class="footer-copy">© 2026 Babylon Barbers Corporation. All Rights Reserved.</p>
+</footer>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+// ─── NAV SCROLL ───
+const nav=document.getElementById('navbar');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  nav.classList.toggle('scrolled',y>80);
+  lastScroll=y;
+},{passive:true});
+
+// ─── SCROLL REVEAL (IntersectionObserver) ───
+const revealEls=document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+revealEls.forEach(el=>observer.observe(el));
+
+// ─── PARALLAX EFFECTS ───
+const parallaxDividers=document.querySelectorAll('[data-parallax]');
+const parallaxTexts=document.querySelectorAll('[data-parallax-text]');
+const parallaxBgs=document.querySelectorAll('[data-parallax-bg]');
+const heroLines=document.querySelectorAll('.hero-line');
+
+function onScroll(){
+  const y=window.scrollY;
+  const vh=window.innerHeight;
+
+  // Hero vertical lines parallax
+  heroLines.forEach((line,i)=>{
+    const speed=parseFloat(line.dataset.parallaxSpeed)||0.03;
+    line.style.transform=`translateY(${y*speed*(i%2===0?1:-1)}px)`;
+  });
+
+  // Parallax divider sections
+  parallaxDividers.forEach((div,i)=>{
+    const rect=div.getBoundingClientRect();
+    const center=(rect.top+rect.height/2)/vh;
+    const offset=(center-0.5)*80;
+
+    if(parallaxBgs[i])parallaxBgs[i].style.transform=`translateY(${offset*0.4}px) scale(1.2)`;
+    if(parallaxTexts[i])parallaxTexts[i].style.transform=`translateX(${offset*1.5}px)`;
+  });
+}
+
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll,{passive:true});
+onScroll();
+
+// ─── SMOOTH ANCHOR SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+// ─── TILT ON HOVER (service & team cards) ───
+document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width-0.5;
+    const y=(e.clientY-rect.top)/rect.height-0.5;
+    card.style.transform=`translateY(-6px) perspective(800px) rotateY(${x*5}deg) rotateX(${-y*5}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';
+  });
+});
+
+// ─── REVIEWS DRAG SCROLL ───
+const track=document.querySelector('.reviews-track');
+if(track){
+  let isDown=false,startX,scrollLeft;
+  track.addEventListener('mousedown',e=>{isDown=true;track.style.cursor='grabbing';startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft});
+  track.addEventListener('mouseleave',()=>{isDown=false;track.style.cursor=''});
+  track.addEventListener('mouseup',()=>{isDown=false;track.style.cursor=''});
+  track.addEventListener('mousemove',e=>{
+    if(!isDown)return;e.preventDefault();
+    const x=e.pageX-track.offsetLeft;
+    track.scrollLeft=scrollLeft-(x-startX)*1.5;
+  });
+}
+</script>
+</body>
+</html>
