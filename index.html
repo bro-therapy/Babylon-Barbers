@@ -7,248 +7,459 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#C9A24D;--gold-light:#E4CE8A;--gold-dark:#A07B2C;--bg:#060606;--bg-warm:#0C0A08;--text:#F2EDE4;--text-dim:#8A8279;--text-muted:#5A554E;--surface:#111110;--surface-light:#1A1918;--border:rgba(201,162,77,0.12);--border-hover:rgba(201,162,77,0.3);--radius:16px;--ease:cubic-bezier(0.22,1,0.36,1)}
-html{scroll-behavior:smooth;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--gold-dark) var(--bg)}
+:root{
+  /* ── BABYLON BARBERS BRAND PALETTE ── */
+  /* Extracted from original site: black bg, gold accents, warm neutrals */
+  --gold:#C9A24D;--gold-light:#E4CE8A;--gold-dark:#A07B2C;--gold-glow:rgba(201,162,77,0.15);
+  --black:#000000;--bg:#060606;--bg-warm:#0C0A08;--bg-section:#080808;
+  --text:#F2EDE4;--text-dim:#9A9590;--text-muted:#5A554E;
+  --surface:#0E0E0D;--surface-light:#161615;--surface-hover:#1C1C1A;
+  --border:rgba(201,162,77,0.1);--border-hover:rgba(201,162,77,0.28);
+  --white:#FFFFFF;--red:#E44;
+  --radius:14px;--ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-body::before{content:'';position:fixed;inset:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all 0.5s var(--ease);background:rgba(6,6,6,0.4);backdrop-filter:blur(12px)}
-nav.scrolled{background:rgba(6,6,6,0.92);backdrop-filter:blur(24px) saturate(1.4);padding:14px 48px;border-bottom:1px solid var(--border)}
-.nav-logo img{height:44px;transition:height 0.3s var(--ease)}
-nav.scrolled .nav-logo img{height:34px}
-.nav-links{display:flex;gap:36px;align-items:center}
-.nav-links a{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text);text-decoration:none;font-weight:500;position:relative;transition:color 0.3s}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.4s var(--ease)}
+body::before{content:'';position:fixed;inset:0;opacity:0.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* ══════════ NAV — Desktop horizontal, Mobile hamburger ══════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s var(--ease);background:rgba(0,0,0,0.5);backdrop-filter:blur(16px)}
+nav.scrolled{background:rgba(0,0,0,0.92);backdrop-filter:blur(24px);padding:12px 40px;border-bottom:1px solid var(--border)}
+.nav-logo img{height:42px;transition:height 0.3s}
+nav.scrolled .nav-logo img{height:32px}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text);text-decoration:none;font-weight:500;transition:color 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s var(--ease)}
 .nav-links a:hover::after{width:100%}.nav-links a:hover{color:var(--gold)}
-.nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:10px 28px;border-radius:100px;font-weight:700;letter-spacing:1.5px!important;font-size:11px!important;transition:transform 0.3s var(--ease),box-shadow 0.3s}
-.nav-cta::after{display:none!important}.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(201,162,77,0.3)}
-.hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,162,77,0.06) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 70% 60%,rgba(201,162,77,0.04) 0%,transparent 60%),var(--bg)}
+.nav-links a.active{color:var(--gold)}
+.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--gold)!important;color:var(--black)!important;padding:9px 24px;border-radius:100px;font-weight:700;letter-spacing:1.5px!important;font-size:10px!important;transition:all 0.3s}
+.nav-cta::after{display:none!important}.nav-cta:hover{box-shadow:0 0 24px rgba(201,162,77,0.3);transform:scale(1.03)}
+
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:300;padding:8px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:all 0.3s var(--ease);border-radius:2px}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* Mobile menu */
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:199;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:opacity 0.4s}
+.mobile-menu.open{opacity:1;pointer-events:all}
+.mobile-menu a{font-family:'Instrument Serif',serif;font-size:28px;color:var(--text);text-decoration:none;transition:color 0.3s}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--gold)}
+.mobile-menu .mob-cta{font-family:'Syne',sans-serif;font-size:13px;background:var(--gold);color:var(--black);padding:14px 40px;border-radius:100px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:12px}
+
+/* ══════════ PAGE SYSTEM ══════════ */
+.page{display:none}.page.active{display:block}
+
+/* ══════════ HERO ══════════ */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 45%,rgba(201,162,77,0.05) 0%,transparent 70%),var(--black)}
 .hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-line{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,162,77,0.08),transparent);height:120%;top:-10%}
+.hero-line{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,162,77,0.06),transparent);height:120%;top:-10%}
 .hero-line:nth-child(1){left:20%}.hero-line:nth-child(2){left:40%}.hero-line:nth-child(3){left:60%}.hero-line:nth-child(4){left:80%}
 .hero-content{position:relative;z-index:2;text-align:center;padding:0 24px}
-.hero-logo{margin-bottom:32px;opacity:0;animation:fadeUp 1s 0.3s var(--ease) forwards}
-.hero-logo img{height:80px}
-.hero-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp 1s 0.5s var(--ease) forwards}
-.hero-title{font-family:'Instrument Serif',serif;font-size:clamp(48px,9vw,120px);line-height:0.92;font-weight:400;letter-spacing:-2px;opacity:0;animation:fadeUp 1s 0.6s var(--ease) forwards}
+.hero-logo{margin-bottom:28px;opacity:0;animation:fadeUp 1s 0.2s var(--ease) forwards}.hero-logo img{height:72px}
+.hero-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0;animation:fadeUp 1s 0.4s var(--ease) forwards}
+.hero-title{font-family:'Instrument Serif',serif;font-size:clamp(44px,8.5vw,110px);line-height:0.92;font-weight:400;letter-spacing:-2px;opacity:0;animation:fadeUp 1s 0.55s var(--ease) forwards}
 .hero-title em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{max-width:460px;margin:28px auto 0;font-size:15px;line-height:1.7;color:var(--text-dim);opacity:0;animation:fadeUp 1s 0.8s var(--ease) forwards}
-.hero-actions{margin-top:44px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 1s var(--ease) forwards}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--bg);padding:16px 40px;border-radius:100px;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.4s var(--ease);border:none;cursor:pointer}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,162,77,0.25)}
-.btn-secondary{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--text);padding:16px 40px;border-radius:100px;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border-hover);transition:all 0.4s var(--ease);cursor:pointer}
-.btn-secondary:hover{background:rgba(255,255,255,0.04);border-color:var(--gold)}
-.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s 1.2s var(--ease) forwards}
-.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite}
-.scroll-text{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)}
-.marquee-section{padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
-.marquee-track{display:flex;gap:60px;animation:marquee 25s linear infinite;width:max-content}
-.marquee-item{font-family:'Instrument Serif',serif;font-size:20px;color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:20px}
-.marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:0.5}
-.section{padding:140px 48px;position:relative}.section-inner{max-width:1200px;margin:0 auto}
-.about-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-.about-title{font-family:'Instrument Serif',serif;font-size:clamp(36px,5vw,60px);line-height:1.05;font-weight:400;margin-bottom:28px}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.about-text{font-size:15px;line-height:1.85;color:var(--text-dim);max-width:500px}
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
-.stat-item{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all 0.4s var(--ease)}
-.stat-item:hover{border-color:var(--border-hover);transform:translateY(-3px)}
-.stat-number{font-family:'Instrument Serif',serif;font-size:42px;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:6px}
-.about-image-col{position:relative}
-.about-image{width:100%;aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border)}
-.about-image img{width:100%;height:100%;object-fit:cover}
-.floating-badge{position:absolute;bottom:-20px;right:-20px;background:var(--gold);color:var(--bg);padding:20px 28px;border-radius:var(--radius);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;box-shadow:0 16px 48px rgba(201,162,77,0.3);animation:float 4s ease-in-out infinite}
-.services-section{background:var(--bg-warm)}.services-header{text-align:center;margin-bottom:80px}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.service-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.5s var(--ease)}
-.service-card:hover{border-color:var(--border-hover);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-.service-card-img{width:100%;height:200px;overflow:hidden}
-.service-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease)}
-.service-card:hover .service-card-img img{transform:scale(1.06)}
-.service-card-body{padding:28px 28px 32px}
-.service-card-body h3{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;margin-bottom:12px}
-.service-card-body p{font-size:13.5px;line-height:1.7;color:var(--text-dim);margin-bottom:20px}
-.service-price-tag{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:var(--gold)}
-.service-price-tag span{font-size:12px;color:var(--text-muted);font-weight:400;margin-left:4px}
-.parallax-divider{height:40vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.parallax-bg{position:absolute;inset:-20%;background:radial-gradient(ellipse at 30% 50%,rgba(201,162,77,0.07) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(201,162,77,0.05) 0%,transparent 50%),var(--bg)}
-.parallax-text{font-family:'Instrument Serif',serif;font-size:clamp(40px,8vw,100px);font-style:italic;color:rgba(201,162,77,0.08);white-space:nowrap;position:relative;z-index:1;user-select:none}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.team-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.5s var(--ease)}
-.team-card:hover{border-color:var(--border-hover);transform:translateY(-6px);box-shadow:0 24px 64px rgba(0,0,0,0.3)}
-.team-photo{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--surface-light),var(--surface))}
-.team-photo img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s var(--ease)}
-.team-card:hover .team-photo img{transform:scale(1.05)}
-.team-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--surface) 0%,transparent 40%)}
-.team-initial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:80px;color:var(--gold);z-index:1;background:linear-gradient(135deg,rgba(201,162,77,0.1) 0%,rgba(201,162,77,0.03) 100%);-webkit-background-clip:unset;-webkit-text-fill-color:var(--gold)}
-.team-info{padding:24px 24px 28px}
-.team-name{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;margin-bottom:4px}
-.team-role-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
-.team-desc{font-size:13px;line-height:1.7;color:var(--text-dim);margin-top:12px}
-.reviews-section{background:var(--bg-warm)}
-.reviews-track{display:flex;gap:24px;overflow-x:auto;padding-bottom:20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab}
-.reviews-track::-webkit-scrollbar{display:none}
-.review-card{min-width:380px;max-width:420px;flex-shrink:0;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:36px;transition:all 0.4s var(--ease)}
-.review-card:hover{border-color:var(--border-hover)}
-.review-stars-row{color:var(--gold);font-size:16px;letter-spacing:4px;margin-bottom:20px}
-.review-quote{font-family:'Instrument Serif',serif;font-size:17px;line-height:1.65;font-style:italic;margin-bottom:20px}
-.review-meta{font-size:12px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase}
-.hours-cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-.hours-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:48px}
-.hours-row-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
-.hours-row-item:last-child{border-bottom:none}
-.hours-day{font-size:14px;font-weight:500}.hours-time{font-family:'Space Mono',monospace;font-size:13px;color:var(--text-dim)}
-.hours-closed{color:#e45;font-weight:500;font-size:13px}
-.cta-block{background:linear-gradient(160deg,rgba(201,162,77,0.08),rgba(201,162,77,0.02));border:1px solid var(--border);border-radius:var(--radius);padding:60px 48px;text-align:center;position:relative;overflow:hidden}
-.cta-block::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(201,162,77,0.04),transparent 60%);animation:slowSpin 30s linear infinite}
-.cta-block h2{font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;margin-bottom:16px;position:relative;z-index:1}
-.cta-block p{font-size:15px;color:var(--text-dim);margin-bottom:36px;position:relative;z-index:1;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.7}
-.cta-apps{display:flex;gap:12px;justify-content:center;margin-top:20px;position:relative;z-index:1}
-.app-badge{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:100px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);font-size:12px;font-weight:600;color:var(--text);text-decoration:none;transition:all 0.3s var(--ease)}
-.app-badge:hover{background:rgba(255,255,255,0.1);border-color:var(--gold)}
-.contact-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}
-.contact-item{padding:48px 36px;text-align:center;border-right:1px solid var(--border);transition:background 0.3s}
-.contact-item:last-child{border-right:none}.contact-item:hover{background:var(--surface)}
-.contact-icon{font-size:24px;margin-bottom:12px;opacity:0.6}
-.contact-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
-.contact-value{font-size:14px;font-weight:600}.contact-value a{color:var(--gold);text-decoration:none}
-footer{padding:60px 48px;text-align:center;border-top:1px solid var(--border)}
-.footer-logo{margin-bottom:20px}.footer-logo img{height:50px}
-.footer-links{display:flex;gap:32px;justify-content:center;margin-bottom:24px}
-.footer-links a{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s}
-.footer-links a:hover{color:var(--gold)}
-.footer-copy{font-size:12px;color:var(--text-muted);font-family:'Space Mono',monospace}
-.footer-social{display:flex;gap:16px;justify-content:center;margin:20px 0}
-.social-circle{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all 0.3s var(--ease)}
-.social-circle:hover{border-color:var(--gold);background:rgba(201,162,77,0.08)}
-.reveal{opacity:0;transform:translateY(40px);transition:all 0.9s var(--ease)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-left{opacity:0;transform:translateX(-40px);transition:all 0.9s var(--ease)}
-.reveal-left.visible{opacity:1;transform:translateX(0)}
-.reveal-right{opacity:0;transform:translateX(40px);transition:all 0.9s var(--ease)}
-.reveal-right.visible{opacity:1;transform:translateX(0)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-sub{max-width:440px;margin:24px auto 0;font-size:14.5px;line-height:1.7;color:var(--text-dim);opacity:0;animation:fadeUp 1s 0.7s var(--ease) forwards}
+.hero-actions{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 0.85s var(--ease) forwards}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--black);padding:14px 36px;border-radius:100px;text-decoration:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.3s var(--ease);border:none;cursor:pointer}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(201,162,77,0.25)}
+.btn-s{display:inline-flex;align-items:center;background:transparent;color:var(--text);padding:14px 36px;border-radius:100px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border-hover);transition:all 0.3s var(--ease);cursor:pointer}
+.btn-s:hover{background:rgba(255,255,255,0.03);border-color:var(--gold)}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp 1s 1.1s var(--ease) forwards}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite}
+.scroll-text{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ══════════ MARQUEE ══════════ */
+.marquee-wrap{padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+.marquee-track{display:flex;gap:50px;animation:marquee 22s linear infinite;width:max-content}
+.marquee-item{font-family:'Instrument Serif',serif;font-size:18px;color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:18px}
+.mq-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.4}
+
+/* ══════════ SHARED ══════════ */
+.sec{padding:120px 40px;position:relative}.sec-in{max-width:1140px;margin:0 auto}
+.tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.sec-title{font-family:'Instrument Serif',serif;font-size:clamp(32px,4.5vw,54px);line-height:1.08;font-weight:400;margin-bottom:24px}
+.sec-text{font-size:14.5px;line-height:1.85;color:var(--text-dim);max-width:500px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all 0.4s var(--ease);overflow:hidden}
+.card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.3)}
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.8s var(--ease)}.reveal.v{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-30px);transition:all 0.8s var(--ease)}.reveal-l.v{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(30px);transition:all 0.8s var(--ease)}.reveal-r.v{opacity:1;transform:translateX(0)}
+
+/* ══════════ ABOUT ══════════ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.stat{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);transition:all 0.3s}
+.stat:hover{border-color:var(--border-hover);transform:translateY(-2px)}
+.stat-n{font-family:'Instrument Serif',serif;font-size:38px;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+.about-img{width:100%;aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);position:relative}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.float-badge{position:absolute;bottom:-16px;right:-16px;background:var(--gold);color:var(--black);padding:16px 24px;border-radius:var(--radius);font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;box-shadow:0 12px 40px rgba(201,162,77,0.3);animation:float 4s ease-in-out infinite}
+
+/* ══════════ SERVICES ══════════ */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc-img{width:100%;height:190px;overflow:hidden}.svc-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.card:hover .svc-img img{transform:scale(1.05)}
+.svc-body{padding:24px 24px 28px}
+.svc-body h3{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;margin-bottom:10px}
+.svc-body p{font-size:13px;line-height:1.65;color:var(--text-dim);margin-bottom:16px}
+.svc-price{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--gold)}
+.svc-price span{font-size:11px;color:var(--text-muted);font-weight:400;margin-left:3px}
+
+/* ══════════ TEAM ══════════ */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.team-photo{width:100%;aspect-ratio:1;position:relative;overflow:hidden;background:var(--surface-light)}
+.team-photo img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.card:hover .team-photo img{transform:scale(1.04)}
+.team-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--surface) 0%,transparent 35%)}
+.team-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:76px;color:var(--gold);z-index:1;background:radial-gradient(circle at 50% 50%,rgba(201,162,77,0.08),transparent 70%)}
+.team-nfo{padding:20px 22px 24px}
+.team-nfo h3{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;margin-bottom:3px}
+.team-nfo .role{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.team-nfo p{font-size:12.5px;line-height:1.65;color:var(--text-dim);margin-top:10px}
+
+/* ══════════ REVIEWS ══════════ */
+.rev-track{display:flex;gap:20px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
+.rev-track::-webkit-scrollbar{display:none}
+.rev-card{min-width:360px;max-width:400px;flex-shrink:0;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;transition:border-color 0.3s}
+.rev-card:hover{border-color:var(--border-hover)}
+.rev-stars{color:var(--gold);font-size:15px;letter-spacing:3px;margin-bottom:16px}
+.rev-q{font-family:'Instrument Serif',serif;font-size:16px;line-height:1.65;font-style:italic;margin-bottom:16px}
+.rev-who{font-size:11px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase}
+
+/* ══════════ HOURS ══════════ */
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.hours-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px}
+.h-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+.h-row:last-child{border-bottom:none}
+.h-day{font-size:13.5px;font-weight:500}.h-time{font-family:'Space Mono',monospace;font-size:12.5px;color:var(--text-dim)}
+.h-closed{color:var(--red);font-weight:500;font-size:12.5px}
+.cta-box{background:linear-gradient(160deg,rgba(201,162,77,0.07),rgba(201,162,77,0.02));border:1px solid var(--border);border-radius:var(--radius);padding:52px 40px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(201,162,77,0.03),transparent 60%);animation:slowSpin 30s linear infinite}
+.cta-box h2{font-family:'Instrument Serif',serif;font-size:32px;font-weight:400;margin-bottom:14px;position:relative;z-index:1}
+.cta-box p{font-size:14px;color:var(--text-dim);margin-bottom:32px;position:relative;z-index:1;max-width:340px;margin-left:auto;margin-right:auto;line-height:1.7}
+.app-row{display:flex;gap:10px;justify-content:center;margin-top:18px;position:relative;z-index:1}
+.app-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);font-size:11px;font-weight:600;color:var(--text);text-decoration:none;transition:all 0.3s}
+.app-btn:hover{background:rgba(255,255,255,0.08);border-color:var(--gold)}
+
+/* ══════════ CONTACT BAR ══════════ */
+.c-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}
+.c-item{padding:40px 28px;text-align:center;border-right:1px solid var(--border);transition:background 0.3s}
+.c-item:last-child{border-right:none}.c-item:hover{background:var(--surface)}
+.c-icon{font-size:22px;margin-bottom:10px;opacity:0.5}
+.c-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.c-val{font-size:13px;font-weight:600}.c-val a{color:var(--gold);text-decoration:none}
+
+/* ══════════ PARALLAX ══════════ */
+.px-div{height:35vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.px-bg{position:absolute;inset:-20%;background:radial-gradient(ellipse at 30% 50%,rgba(201,162,77,0.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(201,162,77,0.04) 0%,transparent 50%),var(--bg)}
+.px-txt{font-family:'Instrument Serif',serif;font-size:clamp(36px,7vw,90px);font-style:italic;color:rgba(201,162,77,0.07);white-space:nowrap;position:relative;z-index:1;user-select:none}
+
+/* ══════════ PAGE: CAREERS ══════════ */
+.page-header{padding:160px 40px 80px;text-align:center;border-bottom:1px solid var(--border)}
+.page-header h1{font-family:'Instrument Serif',serif;font-size:clamp(36px,6vw,64px);font-weight:400;margin-bottom:12px}
+.page-header p{font-size:14px;color:var(--text-dim);max-width:480px;margin:0 auto;line-height:1.7}
+.form-wrap{max-width:560px;margin:0 auto;padding:60px 0}
+.form-wrap label{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;margin-top:24px}
+.form-wrap input,.form-wrap textarea{width:100%;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Syne',sans-serif;font-size:14px;transition:border-color 0.3s;outline:none}
+.form-wrap input:focus,.form-wrap textarea:focus{border-color:var(--gold)}
+.form-wrap textarea{min-height:120px;resize:vertical}
+.form-wrap button{margin-top:28px;width:100%}
+
+/* ══════════ PAGE: MERCHANDISE ══════════ */
+.merch-msg{text-align:center;padding:80px 40px;font-family:'Instrument Serif',serif;font-size:24px;color:var(--text-dim);font-style:italic}
+
+/* ══════════ PAGE: GALLERY ══════════ */
+.gallery-msg{text-align:center;padding:40px 40px 0}
+.gallery-msg a{color:var(--gold);text-decoration:none;font-weight:600;font-size:14px;letter-spacing:1px}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:40px}
+.gallery-grid .g-item{aspect-ratio:1;overflow:hidden;background:var(--surface)}
+.gallery-grid .g-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease)}
+.gallery-grid .g-item:hover img{transform:scale(1.06)}
+
+/* ══════════ FOOTER ══════════ */
+footer{padding:52px 40px;text-align:center;border-top:1px solid var(--border)}
+.ft-logo{margin-bottom:18px}.ft-logo img{height:44px}
+.ft-social{display:flex;gap:14px;justify-content:center;margin:18px 0}
+.ft-social a{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;transition:all 0.3s}
+.ft-social a:hover{border-color:var(--gold);background:rgba(201,162,77,0.06)}
+.ft-links{display:flex;gap:28px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.ft-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.3s}
+.ft-links a:hover{color:var(--gold)}
+.ft-copy{font-size:11px;color:var(--text-muted);font-family:'Space Mono',monospace}
+
+/* ══════════ ANIMATIONS ══════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes scrollPulse{0%,100%{opacity:1;height:48px}50%{opacity:0.3;height:32px}}
+@keyframes scrollPulse{0%,100%{opacity:1;height:44px}50%{opacity:0.3;height:28px}}
 @keyframes slowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@media(max-width:1024px){.about-grid{grid-template-columns:1fr;gap:48px}.services-grid{grid-template-columns:1fr 1fr}.team-grid{grid-template-columns:1fr 1fr}.hours-cta-grid{grid-template-columns:1fr}.contact-bar{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){.section{padding:80px 24px}nav{padding:16px 24px}nav.scrolled{padding:12px 24px}.nav-links{display:none}.services-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}.contact-bar{grid-template-columns:1fr}.contact-item{border-right:none;border-bottom:1px solid var(--border)}.review-card{min-width:300px}.cta-apps{flex-direction:column;align-items:center}footer{padding:40px 24px}.hero-logo img{height:60px}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:1024px){.about-grid{grid-template-columns:1fr;gap:40px}.svc-grid{grid-template-columns:1fr 1fr}.team-grid{grid-template-columns:1fr 1fr}.hours-grid{grid-template-columns:1fr}.c-bar{grid-template-columns:1fr 1fr}.gallery-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .sec{padding:72px 20px}nav{padding:14px 20px}nav.scrolled{padding:10px 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{display:flex}
+  .svc-grid,.team-grid{grid-template-columns:1fr}
+  .c-bar{grid-template-columns:1fr}.c-item{border-right:none;border-bottom:1px solid var(--border)}
+  .rev-card{min-width:280px}
+  .app-row{flex-direction:column;align-items:center}
+  footer{padding:36px 20px}
+  .hero-logo img{height:56px}
+  .gallery-grid{grid-template-columns:1fr 1fr;gap:3px;padding:20px}
+  .ft-links{gap:16px}
+}
 </style>
 </head>
 <body>
+
+<!-- ══ NAV ══ -->
 <nav id="navbar">
-  <a href="#" class="nav-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></a>
-  <div class="nav-links"><a href="#about">About</a><a href="#services">Services</a><a href="#team">Team</a><a href="#reviews">Reviews</a><a href="#hours">Hours</a><a href="https://babylonbookings.com/app" class="nav-cta">Book Now</a></div>
+  <a href="#" class="nav-logo" onclick="showPage('home');return false"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home');return false" class="active" data-page="home">Home</a>
+    <a href="#" onclick="showPage('services');return false" data-page="services">Services</a>
+    <a href="#" onclick="showPage('gallery');return false" data-page="gallery">Gallery</a>
+    <a href="#" onclick="showPage('careers');return false" data-page="careers">Careers</a>
+    <a href="#" onclick="showPage('merch');return false" data-page="merch">Merchandise</a>
+    <a href="#" onclick="showPage('contact');return false" data-page="contact">Contact</a>
+    <a href="https://babylonbookings.com/app" class="nav-cta">Book Now</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
 </nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');closeMobile();return false">Home</a>
+  <a href="#" onclick="showPage('services');closeMobile();return false">Services</a>
+  <a href="#" onclick="showPage('gallery');closeMobile();return false">Gallery</a>
+  <a href="#" onclick="showPage('careers');closeMobile();return false">Careers</a>
+  <a href="#" onclick="showPage('merch');closeMobile();return false">Merchandise</a>
+  <a href="#" onclick="showPage('contact');closeMobile();return false">Contact</a>
+  <a href="https://babylonbookings.com/app" class="mob-cta" onclick="closeMobile()">Book Now</a>
+</div>
+
+<!-- ══════════════════ PAGE: HOME ══════════════════ -->
+<div class="page active" id="page-home">
+
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-lines"><div class="hero-line" data-parallax-speed="0.02"></div><div class="hero-line" data-parallax-speed="0.04"></div><div class="hero-line" data-parallax-speed="0.03"></div><div class="hero-line" data-parallax-speed="0.05"></div></div>
+  <div class="hero-lines"><div class="hero-line" data-ps="0.02"></div><div class="hero-line" data-ps="0.04"></div><div class="hero-line" data-ps="0.03"></div><div class="hero-line" data-ps="0.05"></div></div>
   <div class="hero-content">
     <div class="hero-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></div>
     <p class="hero-tag">Cherry Hill, New Jersey</p>
     <h1 class="hero-title">Where Craft<br>Meets <em>Culture</em></h1>
     <p class="hero-sub">Premium fades, precision grooming, and an atmosphere built for kings. Walk in a client — leave as family.</p>
-    <div class="hero-actions"><a href="https://babylonbookings.com/app" class="btn-primary">Book Your Cut →</a><a href="#services" class="btn-secondary">View Services</a></div>
+    <div class="hero-actions"><a href="https://babylonbookings.com/app" class="btn-p">Book Your Cut →</a><a href="#" class="btn-s" onclick="showPage('services');return false">View Services</a></div>
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div><span class="scroll-text">Scroll</span></div>
 </section>
-<div class="marquee-section"><div class="marquee-track">
-  <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span><span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span><span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span><span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span><span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span><span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span><span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span><span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
-  <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span><span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span><span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span><span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span><span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span><span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span><span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span><span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
+
+<div class="marquee-wrap"><div class="marquee-track">
+  <span class="marquee-item">Taper Fades<span class="mq-dot"></span></span><span class="marquee-item">Beard Shaping<span class="mq-dot"></span></span><span class="marquee-item">Premium Facials<span class="mq-dot"></span></span><span class="marquee-item">Kids Cuts<span class="mq-dot"></span></span><span class="marquee-item">Hot Towel Shaves<span class="mq-dot"></span></span><span class="marquee-item">Eyebrow Threading<span class="mq-dot"></span></span><span class="marquee-item">Massage Therapy<span class="mq-dot"></span></span><span class="marquee-item">Walk-Ins Welcome<span class="mq-dot"></span></span>
+  <span class="marquee-item">Taper Fades<span class="mq-dot"></span></span><span class="marquee-item">Beard Shaping<span class="mq-dot"></span></span><span class="marquee-item">Premium Facials<span class="mq-dot"></span></span><span class="marquee-item">Kids Cuts<span class="mq-dot"></span></span><span class="marquee-item">Hot Towel Shaves<span class="mq-dot"></span></span><span class="marquee-item">Eyebrow Threading<span class="mq-dot"></span></span><span class="marquee-item">Massage Therapy<span class="mq-dot"></span></span><span class="marquee-item">Walk-Ins Welcome<span class="mq-dot"></span></span>
 </div></div>
-<section class="section" id="about"><div class="section-inner"><div class="about-grid">
-  <div class="reveal-left">
-    <p class="about-tag">Our Story</p>
-    <h2 class="about-title">Built on Precision.<br>Defined by Culture.</h2>
-    <p class="about-text">Babylon Barbers is a premium barbershop in the heart of Cherry Hill, NJ. Founded by Mohammed — an engineer-turned-barber who's been behind the chair since age 15 — we bring an obsessive attention to detail and a love for the craft to every single cut.</p>
-    <p class="about-text" style="margin-top:16px">Every haircut includes a refreshing wash, blow-dry, and style. Beard services come with hot towels, premium shaving gel, and precision razor work. This isn't a barbershop — it's an experience.</p>
+
+<!-- About -->
+<section class="sec" id="about"><div class="sec-in"><div class="about-grid">
+  <div class="reveal-l"><p class="tag">Our Story</p><h2 class="sec-title">Built on Precision.<br>Defined by Culture.</h2>
+    <p class="sec-text">Babylon Barbers is a premium barbershop in the heart of Cherry Hill, NJ. Founded by Mohammed — an engineer-turned-barber who's been behind the chair since age 15 — we bring obsessive attention to detail and a love for the craft to every single cut.</p>
+    <p class="sec-text" style="margin-top:14px">Every haircut includes a refreshing wash, blow-dry, and style. Beard services come with hot towels, premium shaving gel, and precision razor work.</p>
     <div class="about-stats">
-      <div class="stat-item reveal"><div class="stat-number">5.0</div><div class="stat-label">Google Rating</div></div>
-      <div class="stat-item reveal" style="transition-delay:0.1s"><div class="stat-number">231+</div><div class="stat-label">5-Star Reviews</div></div>
-      <div class="stat-item reveal" style="transition-delay:0.2s"><div class="stat-number">50+</div><div class="stat-label">Years Combined</div></div>
-      <div class="stat-item reveal" style="transition-delay:0.3s"><div class="stat-number">4</div><div class="stat-label">Expert Barbers</div></div>
+      <div class="stat reveal"><div class="stat-n">5.0</div><div class="stat-l">Google Rating</div></div>
+      <div class="stat reveal" style="transition-delay:.1s"><div class="stat-n">231+</div><div class="stat-l">5-Star Reviews</div></div>
+      <div class="stat reveal" style="transition-delay:.2s"><div class="stat-n">50+</div><div class="stat-l">Years Combined</div></div>
+      <div class="stat reveal" style="transition-delay:.3s"><div class="stat-n">4</div><div class="stat-l">Expert Barbers</div></div>
     </div>
   </div>
-  <div class="about-image-col reveal-right">
-    <div class="about-image"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:800,h:1000,cg:true" alt="Premium Haircut at Babylon Barbers"></div>
-    <div class="floating-badge">★ Perfect 5.0 Rating</div>
+  <div class="reveal-r" style="position:relative">
+    <div class="about-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:800,h:1000,cg:true" alt="Premium Haircut"></div>
+    <div class="float-badge">★ Perfect 5.0</div>
   </div>
 </div></div></section>
-<div class="parallax-divider" data-parallax><div class="parallax-bg" data-parallax-bg></div><div class="parallax-text" data-parallax-text>Precision · Culture · Excellence · Craft</div></div>
-<section class="section services-section" id="services"><div class="section-inner">
-  <div class="services-header reveal"><p class="about-tag" style="text-align:center">Our Services</p><h2 class="about-title" style="text-align:center">Premium Grooming,<br>Every Detail.</h2></div>
-  <div class="services-grid">
-    <div class="service-card reveal" style="transition-delay:0.05s"><div class="service-card-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:20.21%25,l:14.93%25,w:80.65%25,h:45.48%25/rs=w:600,h:400,cg:true,m" alt="Premium Haircut"></div><div class="service-card-body"><h3>Premium Haircut</h3><p>Your choice on top, tightly faded to the neckline. Straight blade lines, finished with a wash and style.</p><div class="service-price-tag">$55</div></div></div>
-    <div class="service-card reveal" style="transition-delay:0.1s"><div class="service-card-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:30.78%25,l:0%25,w:100%25,h:51.84%25/rs=w:600,h:400,cg:true" alt="Standard Haircut"></div><div class="service-card-body"><h3>Standard Haircut</h3><p>Clean cut sides without fading. Scissors on top, finished with a hair wash and styled to perfection.</p><div class="service-price-tag">$50</div></div></div>
-    <div class="service-card reveal" style="transition-delay:0.15s"><div class="service-card-img"><img src="https://img1.wsimg.com/isteam/stock/1865/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:400,cg:true" alt="Wet Shave"></div><div class="service-card-body"><h3>Wet Shave</h3><p>A classic clean shave with two hot towels, finished with a cool towel for a refreshing experience.</p><div class="service-price-tag">$50</div></div></div>
-    <div class="service-card reveal" style="transition-delay:0.2s"><div class="service-card-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/cr=t:0%25,l:5.69%25,w:88.61%25,h:100%25/rs=w:600,h:400,cg:true" alt="Beard Clean Up"></div><div class="service-card-body"><h3>Beard Clean Up</h3><p>Taming and reshaping for longer or shorter beards. Hot towel and razor outline edging included.</p><div class="service-price-tag">$20 <span>– $30</span></div></div></div>
-    <div class="service-card reveal" style="transition-delay:0.25s"><div class="service-card-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/cr=t:10.07%25,l:7.63%25,w:84.75%25,h:63.56%25/rs=w:600,h:400,cg:true,m" alt="Kids Cut"></div><div class="service-card-body"><h3>Kids Cut & Fade</h3><p>Patient, welcoming cuts for the young kings. Standard or faded — both finished with a wash and style.</p><div class="service-price-tag">$35 <span>– $45</span></div></div></div>
-    <div class="service-card reveal" style="transition-delay:0.3s"><div class="service-card-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/cr=t:0%25,l:11.39%25,w:77.21%25,h:99.99%25/rs=w:600,h:400,cg:true,m" alt="Facials"></div><div class="service-card-body"><h3>Facials & Massage</h3><p>Deep cleanse, custom masks, extractions, and full-body massage therapy. True self-care for men.</p><div class="service-price-tag">$40 <span>– $100</span></div></div></div>
-  </div>
-</div></section>
-<div class="parallax-divider" data-parallax><div class="parallax-bg" data-parallax-bg></div><div class="parallax-text" data-parallax-text>Fades · Beards · Facials · Massage · Threading</div></div>
-<section class="section" id="team"><div class="section-inner">
-  <div class="services-header reveal"><p class="about-tag" style="text-align:center">The Artists</p><h2 class="about-title" style="text-align:center">Meet the Team<br>Behind the Chair.</h2></div>
+
+<div class="px-div" data-px><div class="px-bg" data-px-bg></div><div class="px-txt" data-px-txt>Precision · Culture · Excellence · Craft</div></div>
+
+<!-- Team -->
+<section class="sec"><div class="sec-in">
+  <div style="text-align:center;margin-bottom:64px" class="reveal"><p class="tag" style="text-align:center">The Artists</p><h2 class="sec-title" style="text-align:center">Meet the Team.</h2></div>
   <div class="team-grid">
-    <div class="team-card reveal" style="transition-delay:0.05s"><div class="team-photo"><span class="team-initial">Mo</span></div><div class="team-info"><h3 class="team-name">Mohammed</h3><p class="team-role-tag">Owner & Founder</p><p class="team-desc">Drexel Engineering grad who traded blueprints for clippers at 15. His precision and love for the craft built Babylon from the ground up.</p></div></div>
-    <div class="team-card reveal" style="transition-delay:0.1s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:600,h:600,cg:true,m/cr=w:600,h:600" alt="Richie"></div><div class="team-info"><h3 class="team-name">Richie</h3><p class="team-role-tag">Senior Barber · 7+ Years</p><p class="team-desc">From Bergen County to South Jersey, Richie's mastered every texture. Specializes in razor-sharp bald fades that speak for themselves.</p></div></div>
-    <div class="team-card reveal" style="transition-delay:0.15s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:0%25,l:5.66%25,w:88.68%25,h:100%25/rs=w:600,h:600,cg:true" alt="Jay"></div><div class="team-info"><h3 class="team-name">Jay</h3><p class="team-role-tag">Barber · Rising Talent</p><p class="team-desc">The youngest and first female barber to join the crew. Lehigh Valley trained with an unwavering passion that sharpens with every cut.</p></div></div>
-    <div class="team-card reveal" style="transition-delay:0.2s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:600,cg:true" alt="Leigh"></div><div class="team-info"><h3 class="team-name">Leigh</h3><p class="team-role-tag">Senior Stylist · 17 Years</p><p class="team-desc">Nearly two decades in a male-dominated industry only fueled her fire. Leigh lets her clippers do the talking — and clients can't stop raving.</p></div></div>
+    <div class="card reveal" style="transition-delay:.05s"><div class="team-photo"><span class="team-init">Mo</span></div><div class="team-nfo"><h3>Mohammed</h3><p class="role">Owner & Founder</p><p>Drexel Engineering grad who traded blueprints for clippers at 15. His precision built Babylon from the ground up.</p></div></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:600,h:600,cg:true,m/cr=w:600,h:600" alt="Richie"></div><div class="team-nfo"><h3>Richie</h3><p class="role">Senior Barber · 7+ Years</p><p>Mastered every texture from Bergen County to South Jersey. Specializes in razor-sharp bald fades.</p></div></div>
+    <div class="card reveal" style="transition-delay:.15s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:0%25,l:5.66%25,w:88.68%25,h:100%25/rs=w:600,h:600,cg:true" alt="Jay"></div><div class="team-nfo"><h3>Jay</h3><p class="role">Barber · Rising Talent</p><p>Youngest and first female barber on the crew. Lehigh Valley trained with passion that sharpens daily.</p></div></div>
+    <div class="card reveal" style="transition-delay:.2s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:600,cg:true" alt="Leigh"></div><div class="team-nfo"><h3>Leigh</h3><p class="role">Senior Stylist · 17 Years</p><p>Nearly two decades in the industry. She lets her clippers do the talking — and clients can't stop raving.</p></div></div>
   </div>
 </div></section>
-<section class="section reviews-section" id="reviews"><div class="section-inner">
-  <div class="services-header reveal"><p class="about-tag" style="text-align:center">Testimonials</p><h2 class="about-title" style="text-align:center">What Our Clients<br>Are Saying.</h2></div>
-  <div class="reviews-track reveal">
-    <div class="review-card"><div class="review-stars-row">★ ★ ★ ★ ★</div><p class="review-quote">"I walked in with no appointment and they took me immediately. Leigh absolutely crushed it — so attentive to my needs. I left with the confidence of a proud peacock."</p><p class="review-meta">Walk-In Client · Google Review</p></div>
-    <div class="review-card"><div class="review-stars-row">★ ★ ★ ★ ★</div><p class="review-quote">"Consistently professional, friendly, and precise with every cut. Always listens to what I'm after and delivers exactly that. Highly recommend both the shop and Leigh."</p><p class="review-meta">Returning Client · Google Review</p></div>
-    <div class="review-card"><div class="review-stars-row">★ ★ ★ ★ ★</div><p class="review-quote">"Met the owner Mohammad and Richie — they fit me in despite no appointment. One of the best cuts I've received. The environment and service were second to none!"</p><p class="review-meta">Visiting Client · Google Review</p></div>
-    <div class="review-card"><div class="review-stars-row">★ ★ ★ ★ ★</div><p class="review-quote">"My son and I both get our haircuts here and we consistently leave impressed. Most importantly — the wife is very happy with the results! Highly recommend."</p><p class="review-meta">Family Client · Google Review</p></div>
-    <div class="review-card"><div class="review-stars-row">★ ★ ★ ★ ★</div><p class="review-quote">"The spot is so clean, the music is amazing, and everyone is super friendly. My partner said it was the best cut he's gotten. We will definitely be back!"</p><p class="review-meta">Convention Visitor · Google Review</p></div>
+
+<!-- Reviews -->
+<section class="sec" style="background:var(--bg-warm)"><div class="sec-in">
+  <div style="text-align:center;margin-bottom:64px" class="reveal"><p class="tag" style="text-align:center">Testimonials</p><h2 class="sec-title" style="text-align:center">What Clients Say.</h2></div>
+  <div class="rev-track reveal">
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-q">"Leigh absolutely crushed it — so attentive to my needs. I left with the confidence of a proud peacock."</p><p class="rev-who">Walk-In · Google</p></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-q">"Consistently professional, friendly, and precise with every cut. Always delivers exactly what I'm after."</p><p class="rev-who">Regular · Google</p></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-q">"Met Mohammad and Richie — one of the best cuts I've received. Environment and service were second to none!"</p><p class="rev-who">Visitor · Google</p></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-q">"My son and I both get haircuts here and consistently leave impressed. The wife is very happy with the results!"</p><p class="rev-who">Family · Google</p></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><p class="rev-q">"The spot is so clean, the music is amazing, everyone is super friendly. Best cut he's gotten!"</p><p class="rev-who">Convention · Google</p></div>
   </div>
 </div></section>
-<section class="section" id="hours"><div class="section-inner"><div class="hours-cta-grid">
-  <div class="hours-card reveal-left">
-    <p class="about-tag">Operating Hours</p><h2 class="about-title" style="font-size:32px;margin-bottom:32px">When to<br>Find Us.</h2>
-    <div class="hours-row-item"><span class="hours-day">Monday</span><span class="hours-closed">Closed</span></div>
-    <div class="hours-row-item"><span class="hours-day">Tuesday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
-    <div class="hours-row-item"><span class="hours-day">Wednesday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
-    <div class="hours-row-item"><span class="hours-day">Thursday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
-    <div class="hours-row-item"><span class="hours-day">Friday</span><span class="hours-time">9:00 AM — 8:00 PM</span></div>
-    <div class="hours-row-item"><span class="hours-day">Saturday</span><span class="hours-time">8:00 AM — 6:00 PM</span></div>
-    <div class="hours-row-item"><span class="hours-day">Sunday</span><span class="hours-closed">Closed</span></div>
+
+<!-- Hours -->
+<section class="sec"><div class="sec-in"><div class="hours-grid">
+  <div class="hours-card reveal-l"><p class="tag">Hours</p><h2 class="sec-title" style="font-size:28px;margin-bottom:28px">When to Find Us.</h2>
+    <div class="h-row"><span class="h-day">Monday</span><span class="h-closed">Closed</span></div>
+    <div class="h-row"><span class="h-day">Tuesday</span><span class="h-time">9:00 AM — 8:00 PM</span></div>
+    <div class="h-row"><span class="h-day">Wednesday</span><span class="h-time">9:00 AM — 8:00 PM</span></div>
+    <div class="h-row"><span class="h-day">Thursday</span><span class="h-time">9:00 AM — 8:00 PM</span></div>
+    <div class="h-row"><span class="h-day">Friday</span><span class="h-time">9:00 AM — 8:00 PM</span></div>
+    <div class="h-row"><span class="h-day">Saturday</span><span class="h-time">8:00 AM — 6:00 PM</span></div>
+    <div class="h-row"><span class="h-day">Sunday</span><span class="h-closed">Closed</span></div>
   </div>
-  <div class="cta-block reveal-right">
-    <h2>Ready for Your<br>Best Cut Yet?</h2><p>Book your appointment instantly through our app or website. Walk-ins are always welcome based on availability.</p>
-    <a href="https://babylonbookings.com/app" class="btn-primary" style="margin-bottom:16px">Book Now →</a>
-    <div class="cta-apps"><a href="https://apps.apple.com/us/app/babylon-bookings/id6465520067" class="app-badge">📱 App Store</a><a href="https://play.google.com/store/apps/details?id=com.babylonbookings.babylonbookings" class="app-badge">▶️ Google Play</a></div>
+  <div class="cta-box reveal-r">
+    <h2>Ready for Your<br>Best Cut Yet?</h2><p>Book instantly through our app or website. Walk-ins welcome based on availability.</p>
+    <a href="https://babylonbookings.com/app" class="btn-p" style="margin-bottom:14px">Book Now →</a>
+    <div class="app-row"><a href="https://apps.apple.com/us/app/babylon-bookings/id6465520067" class="app-btn">📱 App Store</a><a href="https://play.google.com/store/apps/details?id=com.babylonbookings.babylonbookings" class="app-btn">▶️ Google Play</a></div>
   </div>
 </div></div></section>
-<div class="contact-bar">
-  <div class="contact-item reveal"><div class="contact-icon">📍</div><div class="contact-label">Address</div><div class="contact-value">484 E Evesham Rd, Ste 6<br>Cherry Hill, NJ 08003</div></div>
-  <div class="contact-item reveal" style="transition-delay:0.05s"><div class="contact-icon">📞</div><div class="contact-label">Call Us</div><div class="contact-value"><a href="tel:8562952244">(856) 295-2244</a></div></div>
-  <div class="contact-item reveal" style="transition-delay:0.1s"><div class="contact-icon">🌐</div><div class="contact-label">Website</div><div class="contact-value"><a href="https://babylonbarbers.com">babylonbarbers.com</a></div></div>
-  <div class="contact-item reveal" style="transition-delay:0.15s"><div class="contact-icon">♿</div><div class="contact-label">Accessibility</div><div class="contact-value">Wheelchair Accessible<br>ADA-Compliant Entrance</div></div>
+
+<div class="c-bar">
+  <div class="c-item reveal"><div class="c-icon">📍</div><div class="c-label">Address</div><div class="c-val">484 E Evesham Rd, Ste 6<br>Cherry Hill, NJ 08003</div></div>
+  <div class="c-item reveal" style="transition-delay:.05s"><div class="c-icon">📞</div><div class="c-label">Call</div><div class="c-val"><a href="tel:8562952244">(856) 295-2244</a></div></div>
+  <div class="c-item reveal" style="transition-delay:.1s"><div class="c-icon">🌐</div><div class="c-label">Web</div><div class="c-val"><a href="https://babylonbarbers.com">babylonbarbers.com</a></div></div>
+  <div class="c-item reveal" style="transition-delay:.15s"><div class="c-icon">♿</div><div class="c-label">Access</div><div class="c-val">ADA Compliant<br>Wheelchair Access</div></div>
 </div>
+</div>
+
+<!-- ══════════════════ PAGE: SERVICES ══════════════════ -->
+<div class="page" id="page-services">
+<div class="page-header"><h1>Our Services</h1><p>Premium grooming with every detail covered. Every haircut includes a wash, blow-dry, and style.</p></div>
+<section class="sec"><div class="sec-in">
+  <div class="svc-grid">
+    <div class="card reveal"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:20.21%25,l:14.93%25,w:80.65%25,h:45.48%25/rs=w:600,h:400,cg:true,m" alt="Premium Haircut"></div><div class="svc-body"><h3>Premium Haircut</h3><p>Your choice on top, tightly faded to the neckline. Straight blade lines, finished with a wash and style.</p><div class="svc-price">$55</div></div></div>
+    <div class="card reveal" style="transition-delay:.05s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:30.78%25,l:0%25,w:100%25,h:51.84%25/rs=w:600,h:400,cg:true" alt="Standard Haircut"></div><div class="svc-body"><h3>Standard Haircut</h3><p>Clean cut sides without fading. Scissors on top, finished with a hair wash and styled.</p><div class="svc-price">$50</div></div></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/stock/1865/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:400,cg:true" alt="Wet Shave"></div><div class="svc-body"><h3>Wet Shave</h3><p>Classic clean shave with two hot towels, finished with a cool towel for a refreshing feeling.</p><div class="svc-price">$50</div></div></div>
+    <div class="card reveal" style="transition-delay:.15s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/cr=t:0%25,l:5.69%25,w:88.61%25,h:100%25/rs=w:600,h:400,cg:true" alt="Beard"></div><div class="svc-body"><h3>Longer Beard Clean Up</h3><p>For longer beards requiring taming & reshaping. Includes hot towel and razor outline edging.</p><div class="svc-price">$30</div></div></div>
+    <div class="card reveal" style="transition-delay:.2s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/stock/WbW1Plg/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:400,cg:true" alt="Short Beard"></div><div class="svc-body"><h3>Shorter Beard Clean Up</h3><p>Mowing down and shaping outlines with a razor. Includes hot towel and razor edging.</p><div class="svc-price">$20</div></div></div>
+    <div class="card reveal" style="transition-delay:.25s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/stock/uGdxKKo2epTNN7Rlq/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:400,cg:true" alt="Waxing"></div><div class="svc-body"><h3>Upper-Beard Waxing</h3><p>Baby hair removal using wax. Finished with oil to slow regrowth.</p><div class="svc-price">$20</div></div></div>
+    <div class="card reveal" style="transition-delay:.05s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/cr=t:10.07%25,l:7.63%25,w:84.75%25,h:63.56%25/rs=w:600,h:400,cg:true,m" alt="Kids Fade"></div><div class="svc-body"><h3>Kids Fade</h3><p>Faded or tapered on the sides with scissors on top. Finished with a hair wash and styled.</p><div class="svc-price">$45</div></div></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/cr=t:21.87%25,l:0%25,w:100%25,h:56.27%25/rs=w:600,h:400,cg:true" alt="Kids Cut"></div><div class="svc-body"><h3>Kids Cut</h3><p>Clean sides with no fading or tapering. Scissors on top, finished with wash and style.</p><div class="svc-price">$35</div></div></div>
+    <div class="card reveal" style="transition-delay:.15s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/cr=t:0%25,l:5.65%25,w:88.69%25,h:100%25/rs=w:600,h:400,cg:true" alt="Eyebrow Threading"></div><div class="svc-body"><h3>Eyebrow Threading</h3><p>Eyebrows shaped using thread. Pulls hair from the root for longer lasting results.</p><div class="svc-price">$15</div></div></div>
+    <div class="card reveal" style="transition-delay:.2s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/stock/RyQjW1J/:/cr=t:12.41%25,l:0%25,w:100%25,h:75.19%25/rs=w:600,h:400,cg:true" alt="Eyebrows Razor"></div><div class="svc-body"><h3>Eyebrows w/ Razor</h3><p>Eyebrows shaped with a fresh razor blade.</p><div class="svc-price">$5</div></div></div>
+    <div class="card reveal" style="transition-delay:.25s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/stock/opb2PoB/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:400,cg:true" alt="Standard Facial"></div><div class="svc-body"><h3>Standard Facial</h3><p>20 min: Deep cleanse, custom face mask, quick extractions, facial massage, hydrate & protect.</p><div class="svc-price">$40</div></div></div>
+    <div class="card reveal" style="transition-delay:.3s"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/blob-969b28d.png/:/cr=t:5.65%25,l:0%25,w:100%25,h:88.69%25/rs=w:600,h:400,cg:true" alt="Premium Facial"></div><div class="svc-body"><h3>Premium Facial</h3><p>30 min: Double masks, neck & shoulder massage, extractions, facial massage, hydrate & protect.</p><div class="svc-price">$50</div></div></div>
+    <div class="card reveal"><div class="svc-img"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/cr=t:0%25,l:11.39%25,w:77.21%25,h:99.99%25/rs=w:600,h:400,cg:true,m" alt="Deluxe Facial"></div><div class="svc-body"><h3>Deluxe Facial</h3><p>60 min: Full treatment with hand & arm massage, double masks, extended extractions, and complete hydration.</p><div class="svc-price">$100</div></div></div>
+  </div>
+</div></section>
+</div>
+
+<!-- ══════════════════ PAGE: GALLERY ══════════════════ -->
+<div class="page" id="page-gallery">
+<div class="page-header"><h1>Gallery</h1><p>Check out our work. Follow us on Instagram for daily updates.</p></div>
+<div class="gallery-msg"><a href="https://www.instagram.com/babylon_barbers/" target="_blank">Follow @babylon_barbers on Instagram →</a></div>
+<div class="gallery-grid">
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:600,h:600,cg:true" alt="Cut 1"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:600,h:600,cg:true" alt="Cut 2"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:600,h:600,cg:true,m" alt="Richie"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:600,h:600,cg:true" alt="Beard"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/rs=w:600,h:600,cg:true" alt="Kids"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/rs=w:600,h:600,cg:true" alt="Kids Cut"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/rs=w:600,h:600,cg:true" alt="Leigh"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/rs=w:600,h:600,cg:true" alt="Jay"></div>
+  <div class="g-item"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/rs=w:600,h:600,cg:true" alt="Facials"></div>
+</div>
+</div>
+
+<!-- ══════════════════ PAGE: CAREERS ══════════════════ -->
+<div class="page" id="page-careers">
+<div class="page-header"><h1>We're Hiring!</h1><p>Join the Babylon team. If you're passionate about the craft, we want to hear from you.</p></div>
+<section class="sec"><div class="sec-in"><div class="form-wrap">
+  <label>Full Name</label><input type="text" placeholder="Your name">
+  <label>Phone</label><input type="tel" placeholder="(555) 555-5555">
+  <label>Email</label><input type="email" placeholder="you@email.com">
+  <label>Tell Us About Yourself</label><textarea placeholder="Your experience, specialties, why you want to join Babylon..."></textarea>
+  <button class="btn-p" type="button" onclick="alert('Please submit your application at babylonbarbers.com/careers')">Submit Application</button>
+</div></div></section>
+</div>
+
+<!-- ══════════════════ PAGE: MERCHANDISE ══════════════════ -->
+<div class="page" id="page-merch">
+<div class="page-header"><h1>Merchandise</h1><p>Rep the Babylon brand. Coming soon.</p></div>
+<div class="merch-msg">Merch drops coming soon — follow <a href="https://www.instagram.com/babylon_barbers/" target="_blank" style="color:var(--gold)">@babylon_barbers</a> to be the first to know.</div>
+</div>
+
+<!-- ══════════════════ PAGE: CONTACT ══════════════════ -->
+<div class="page" id="page-contact">
+<div class="page-header"><h1>Contact Us</h1><p>Get in touch or book an appointment.</p></div>
+<section class="sec"><div class="sec-in"><div class="hours-grid">
+  <div class="form-wrap" style="padding-top:0">
+    <label>Name</label><input type="text" placeholder="Your name">
+    <label>Email</label><input type="email" placeholder="you@email.com">
+    <label>Message</label><textarea placeholder="How can we help?"></textarea>
+    <button class="btn-p" type="button" onclick="alert('Please reach out at babylonbarbers.com/contact-us or call (856) 295-2244')">Send Message</button>
+  </div>
+  <div>
+    <div class="hours-card">
+      <p class="tag">Cancellation Policy</p>
+      <p class="sec-text" style="font-size:13px">Cancellations accepted up to 24 hours before the scheduled service. Within 2 hours, cancellations will be charged 50% of the scheduled cost.</p>
+      <div style="margin-top:28px"><p class="tag">Location</p>
+      <p class="sec-text" style="font-size:13px"><strong style="color:var(--text)">Babylon Barbers Corporation</strong><br>484 East Evesham Road<br>Cherry Hill, NJ 08003</p>
+      <p style="margin-top:14px"><a href="tel:8562952244" style="color:var(--gold);text-decoration:none;font-weight:600;font-size:14px">(856) 295-2244</a></p></div>
+    </div>
+  </div>
+</div></div></section>
+</div>
+
+<!-- ══════════ FOOTER (shared) ══════════ -->
 <footer>
-  <div class="footer-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></div>
-  <div class="footer-social"><a href="https://www.instagram.com/babylon_barbers/" class="social-circle">📷</a><a href="https://www.facebook.com/BabylonBarbersCherryHill/" class="social-circle">👤</a><a href="https://www.yelp.com/biz/babylon-barber-cherry-hill-2" class="social-circle">⭐</a></div>
-  <div class="footer-links"><a href="#about">About</a><a href="#services">Services</a><a href="#team">Team</a><a href="#reviews">Reviews</a><a href="#hours">Hours</a></div>
-  <p class="footer-copy">© 2026 Babylon Barbers Corporation. All Rights Reserved.</p>
+  <div class="ft-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></div>
+  <div class="ft-social"><a href="https://www.instagram.com/babylon_barbers/">📷</a><a href="https://www.facebook.com/BabylonBarbersCherryHill/">👤</a><a href="https://www.yelp.com/biz/babylon-barber-cherry-hill-2">⭐</a></div>
+  <div class="ft-links">
+    <a href="#" onclick="showPage('home');return false">Home</a><a href="#" onclick="showPage('services');return false">Services</a>
+    <a href="#" onclick="showPage('gallery');return false">Gallery</a><a href="#" onclick="showPage('careers');return false">Careers</a>
+    <a href="#" onclick="showPage('contact');return false">Contact</a>
+  </div>
+  <p class="ft-copy">© 2026 Babylon Barbers Corporation. All Rights Reserved.</p>
 </footer>
+
 <script>
-const nav=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)},{passive:true});
-const revealEls=document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
-revealEls.forEach(el=>observer.observe(el));
-const parallaxTexts=document.querySelectorAll('[data-parallax-text]'),parallaxBgs=document.querySelectorAll('[data-parallax-bg]'),heroLines=document.querySelectorAll('.hero-line');
-function onScroll(){const y=window.scrollY,vh=window.innerHeight;heroLines.forEach((l,i)=>{const s=parseFloat(l.dataset.parallaxSpeed)||0.03;l.style.transform=`translateY(${y*s*(i%2===0?1:-1)}px)`});document.querySelectorAll('[data-parallax]').forEach((d,i)=>{const r=d.getBoundingClientRect(),c=(r.top+r.height/2)/vh,o=(c-0.5)*80;if(parallaxBgs[i])parallaxBgs[i].style.transform=`translateY(${o*0.4}px) scale(1.2)`;if(parallaxTexts[i])parallaxTexts[i].style.transform=`translateX(${o*1.5}px)`})}
+// ── Page routing ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links a[data-page]').forEach(a=>{a.classList.toggle('active',a.dataset.page===id)});
+  window.scrollTo({top:0,behavior:'smooth'});
+  initReveals();
+}
+// ── Mobile menu ──
+function toggleMobile(){document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');document.body.style.overflow=document.getElementById('mobileMenu').classList.contains('open')?'hidden':''}
+function closeMobile(){document.getElementById('hamburger').classList.remove('open');document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''}
+// ── Nav scroll ──
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+// ── Scroll reveals ──
+function initReveals(){
+  const els=document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  els.forEach(el=>{if(!el.classList.contains('v'))obs.observe(el)});
+}
+initReveals();
+// ── Parallax ──
+const pxTexts=document.querySelectorAll('[data-px-txt]'),pxBgs=document.querySelectorAll('[data-px-bg]'),hLines=document.querySelectorAll('.hero-line');
+function onScroll(){const y=window.scrollY,vh=window.innerHeight;
+  hLines.forEach((l,i)=>{const s=parseFloat(l.dataset.ps)||0.03;l.style.transform=`translateY(${y*s*(i%2===0?1:-1)}px)`});
+  document.querySelectorAll('[data-px]').forEach((d,i)=>{const r=d.getBoundingClientRect(),c=(r.top+r.height/2)/vh,o=(c-0.5)*70;if(pxBgs[i])pxBgs[i].style.transform=`translateY(${o*0.4}px) scale(1.2)`;if(pxTexts[i])pxTexts[i].style.transform=`translateX(${o*1.5}px)`});
+}
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
-document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;c.style.transform=`translateY(-6px) perspective(800px) rotateY(${x*4}deg) rotateX(${-y*4}deg)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})});
-const track=document.querySelector('.reviews-track');if(track){let d=false,sx,sl;track.addEventListener('mousedown',e=>{d=true;track.style.cursor='grabbing';sx=e.pageX-track.offsetLeft;sl=track.scrollLeft});track.addEventListener('mouseleave',()=>{d=false;track.style.cursor=''});track.addEventListener('mouseup',()=>{d=false;track.style.cursor=''});track.addEventListener('mousemove',e=>{if(!d)return;e.preventDefault();track.scrollLeft=sl-(e.pageX-track.offsetLeft-sx)*1.5})}
+// ── Card tilt ──
+document.querySelectorAll('.card,.stat').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;c.style.transform=`translateY(-4px) perspective(800px) rotateY(${x*3}deg) rotateX(${-y*3}deg)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})});
+// ── Reviews drag ──
+const trk=document.querySelector('.rev-track');if(trk){let d=false,sx,sl;trk.addEventListener('mousedown',e=>{d=true;trk.style.cursor='grabbing';sx=e.pageX-trk.offsetLeft;sl=trk.scrollLeft});trk.addEventListener('mouseleave',()=>{d=false;trk.style.cursor=''});trk.addEventListener('mouseup',()=>{d=false;trk.style.cursor=''});trk.addEventListener('mousemove',e=>{if(!d)return;e.preventDefault();trk.scrollLeft=sl-(e.pageX-trk.offsetLeft-sx)*1.5})}
 </script>
 </body>
 </html>
