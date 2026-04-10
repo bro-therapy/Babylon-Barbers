@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#C9A24D;--gold-light:#E4CE8A;--gold-dark:#A07B2C;--bg:#060606;--bg-warm:#0C0A08;--text:#F2EDE4;--text-dim:#8A8279;--text-muted:#5A554E;--surface:#111110;--surface-light:#1A1918;--border:rgba(201,162,77,0.12);--border-hover:rgba(201,162,77,0.3);--radius:16px;--ease:cubic-bezier(0.22,1,0.36,1)}
+:root{--gold:#D4A84B;--gold-light:#E8D08E;--gold-dark:#B08A30;--bg:#050505;--bg-warm:#0A0908;--text:#F0EBE1;--text-dim:#887F74;--text-muted:#5C564F;--surface:#0F0E0D;--surface-light:#181716;--border:rgba(212,168,75,0.10);--border-hover:rgba(212,168,75,0.28);--radius:16px;--ease:cubic-bezier(0.22,1,0.36,1)}
 html{scroll-behavior:smooth;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--gold-dark) var(--bg)}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body::before{content:'';position:fixed;inset:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
@@ -21,13 +21,13 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s var(--ease)}
 .nav-links a:hover::after{width:100%}.nav-links a:hover{color:var(--gold)}
 .nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:10px 28px;border-radius:100px;font-weight:700;letter-spacing:1.5px!important;font-size:11px!important;transition:transform .3s var(--ease),box-shadow .3s}
-.nav-cta::after{display:none!important}.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(201,162,77,.3)}
+.nav-cta::after{display:none!important}.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(212,168,75,.3)}
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,162,77,.06) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 70% 60%,rgba(201,162,77,.04) 0%,transparent 60%),var(--bg)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,168,75,.06) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 70% 60%,rgba(212,168,75,.04) 0%,transparent 60%),var(--bg)}
 .hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.hero-line{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,162,77,.08),transparent);height:120%;top:-10%}
+.hero-line{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(212,168,75,.08),transparent);height:120%;top:-10%}
 .hero-line:nth-child(1){left:20%}.hero-line:nth-child(2){left:40%}.hero-line:nth-child(3){left:60%}.hero-line:nth-child(4){left:80%}
 .hero-content{position:relative;z-index:2;text-align:center;padding:0 24px}
 .hero-logo{margin-bottom:32px;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}.hero-logo img{height:80px}
@@ -37,7 +37,7 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .hero-sub{max-width:460px;margin:28px auto 0;font-size:15px;line-height:1.7;color:var(--text-dim);opacity:0;animation:fadeUp 1s .8s var(--ease) forwards}
 .hero-actions{margin-top:44px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 1s var(--ease) forwards}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--bg);padding:16px 40px;border-radius:100px;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all .4s var(--ease);border:none;cursor:pointer}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,162,77,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(212,168,75,.25)}
 .btn-secondary{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--text);padding:16px 40px;border-radius:100px;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--border-hover);transition:all .4s var(--ease);cursor:pointer}
 .btn-secondary:hover{background:rgba(255,255,255,.04);border-color:var(--gold)}
 .hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s 1.2s var(--ease) forwards}
@@ -73,7 +73,7 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .stat-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:6px}
 .about-image-col{position:relative}.about-image{width:100%;aspect-ratio:3/4;border-radius:var(--radius);overflow:hidden;background:var(--surface);border:1px solid var(--border)}
 .about-image img{width:100%;height:100%;object-fit:cover}
-.floating-badge{position:absolute;bottom:-20px;right:-20px;background:var(--gold);color:var(--bg);padding:20px 28px;border-radius:var(--radius);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;box-shadow:0 16px 48px rgba(201,162,77,.3);animation:float 4s ease-in-out infinite}
+.floating-badge{position:absolute;bottom:-20px;right:-20px;background:var(--gold);color:var(--bg);padding:20px 28px;border-radius:var(--radius);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;box-shadow:0 16px 48px rgba(212,168,75,.3);animation:float 4s ease-in-out infinite}
 
 /* SERVICES */
 .services-section{background:var(--bg-warm)}.services-header{text-align:center;margin-bottom:80px}
@@ -88,8 +88,8 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 
 /* PARALLAX */
 .parallax-divider{height:40vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.parallax-bg{position:absolute;inset:-20%;background:radial-gradient(ellipse at 30% 50%,rgba(201,162,77,.07) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(201,162,77,.05) 0%,transparent 50%),var(--bg)}
-.parallax-text{font-family:'Instrument Serif',serif;font-size:clamp(40px,8vw,100px);font-style:italic;color:rgba(201,162,77,.08);white-space:nowrap;position:relative;z-index:1;user-select:none}
+.parallax-bg{position:absolute;inset:-20%;background:radial-gradient(ellipse at 30% 50%,rgba(212,168,75,.07) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(212,168,75,.05) 0%,transparent 50%),var(--bg)}
+.parallax-text{font-family:'Instrument Serif',serif;font-size:clamp(40px,8vw,100px);font-style:italic;color:rgba(212,168,75,.08);white-space:nowrap;position:relative;z-index:1;user-select:none}
 
 /* TEAM */
 .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -99,7 +99,7 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .team-photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
 .team-card:hover .team-photo img{transform:scale(1.05)}
 .team-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--surface) 0%,transparent 40%)}
-.team-initial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:80px;color:var(--gold);z-index:1;background:linear-gradient(135deg,rgba(201,162,77,.1) 0%,rgba(201,162,77,.03) 100%)}
+.team-initial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:80px;color:var(--gold);z-index:1;background:linear-gradient(135deg,rgba(212,168,75,.1) 0%,rgba(212,168,75,.03) 100%)}
 .team-info{padding:24px 24px 28px}.team-name{font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;margin-bottom:4px}
 .team-role-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
 .team-desc{font-size:13px;line-height:1.7;color:var(--text-dim);margin-top:12px}
@@ -114,7 +114,7 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .review-author{font-size:13px;font-weight:600;color:var(--text)}.review-source{font-size:11px;color:var(--text-muted);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
 .review-cta{text-align:center;margin-top:20px;display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
 .btn-google{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border-hover);color:var(--text);padding:14px 32px;border-radius:100px;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:all .4s var(--ease)}
-.btn-google:hover{background:rgba(201,162,77,.08);border-color:var(--gold);transform:translateY(-2px)}
+.btn-google:hover{background:rgba(212,168,75,.08);border-color:var(--gold);transform:translateY(-2px)}
 
 /* MAP SECTION */
 .map-section{background:var(--bg)}
@@ -132,8 +132,8 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .hours-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:48px}
 .hours-row-item{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04)}.hours-row-item:last-child{border-bottom:none}
 .hours-day{font-size:14px;font-weight:500}.hours-time{font-family:'Space Mono',monospace;font-size:13px;color:var(--text-dim)}.hours-closed{color:#e45;font-weight:500;font-size:13px}
-.cta-block{background:linear-gradient(160deg,rgba(201,162,77,.08),rgba(201,162,77,.02));border:1px solid var(--border);border-radius:var(--radius);padding:60px 48px;text-align:center;position:relative;overflow:hidden}
-.cta-block::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(201,162,77,.04),transparent 60%);animation:slowSpin 30s linear infinite}
+.cta-block{background:linear-gradient(160deg,rgba(212,168,75,.08),rgba(212,168,75,.02));border:1px solid var(--border);border-radius:var(--radius);padding:60px 48px;text-align:center;position:relative;overflow:hidden}
+.cta-block::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(212,168,75,.04),transparent 60%);animation:slowSpin 30s linear infinite}
 .cta-block h2{font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;margin-bottom:16px;position:relative;z-index:1}
 .cta-block p{font-size:15px;color:var(--text-dim);margin-bottom:36px;position:relative;z-index:1;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.7}
 .cta-apps{display:flex;gap:12px;justify-content:center;margin-top:20px;position:relative;z-index:1}
@@ -146,7 +146,7 @@ footer{padding:60px 48px;text-align:center;border-top:1px solid var(--border)}
 .footer-links a{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .3s}.footer-links a:hover{color:var(--gold)}
 .footer-copy{font-size:12px;color:var(--text-muted);font-family:'Space Mono',monospace}
 .footer-social{display:flex;gap:16px;justify-content:center;margin:20px 0}
-.social-circle{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all .3s var(--ease)}.social-circle:hover{border-color:var(--gold);background:rgba(201,162,77,.08)}
+.social-circle{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all .3s var(--ease)}.social-circle:hover{border-color:var(--gold);background:rgba(212,168,75,.08)}
 
 /* ANIMS */
 .reveal{opacity:0;transform:translateY(40px);transition:all .9s var(--ease)}.reveal.visible{opacity:1;transform:translateY(0)}
@@ -221,41 +221,58 @@ footer{padding:60px 48px;text-align:center;border-top:1px solid var(--border)}
 <!-- PHOTO GALLERY CAROUSEL -->
 <section id="gallery" class="photo-carousel-section" style="padding:60px 0">
   <div class="section-inner" style="padding:0 48px;margin-bottom:40px"><div class="services-header reveal" style="margin-bottom:0"><p class="about-tag" style="text-align:center">Gallery</p><h2 class="about-title" style="text-align:center;font-size:clamp(30px,4vw,48px)">See the Work.</h2></div></div>
+  <!-- ROW 1: Haircuts & Fades -->
   <div class="photo-strip scroll-left">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:400,h:300,cg:true,m" alt="Fade" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:400,h:300,cg:true" alt="Cut" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:400,h:300,cg:true,m" alt="Richie" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:400,h:300,cg:true" alt="Beard" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/rs=w:400,h:300,cg:true,m" alt="Kid Fade" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/rs=w:400,h:300,cg:true" alt="Leigh" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/rs=w:400,h:300,cg:true" alt="Kids Cut" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/rs=w:400,h:300,cg:true" alt="Jay" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:400,h:300,cg:true,m" alt="Fade" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:400,h:300,cg:true" alt="Cut" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:400,h:300,cg:true,m" alt="Richie" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:400,h:300,cg:true" alt="Beard" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/rs=w:400,h:300,cg:true,m" alt="Kid Fade" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/rs=w:400,h:300,cg:true" alt="Leigh" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/rs=w:400,h:300,cg:true" alt="Kids" style="width:320px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/rs=w:400,h:300,cg:true" alt="Jay" style="width:320px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:440,h:330,cg:true,m" alt="Premium Fade" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:440,h:330,cg:true" alt="Standard Haircut" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:440,h:330,cg:true,m" alt="Richie at Work" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/rs=w:440,h:330,cg:true,m" alt="Kids Fade" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/rs=w:440,h:330,cg:true" alt="Kids Cut" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:440,h:330,cg:true" alt="Beard Shaping" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/rs=w:440,h:330,cg:true" alt="Jay" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/rs=w:440,h:330,cg:true" alt="Leigh" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:10%25,l:10%25,w:80%25,h:70%25/rs=w:440,h:330,cg:true,m" alt="Fade Detail" style="width:300px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:20%25,l:0%25,w:100%25,h:60%25/rs=w:440,h:330,cg:true" alt="Cut Close Up" style="width:300px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/cr=t:10%25,l:20%25,w:60%25,h:80%25/rs=w:440,h:330,cg:true,m" alt="Barber Portrait" style="width:300px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/cr=t:5%25,l:0%25,w:100%25,h:70%25/rs=w:440,h:330,cg:true,m" alt="Kid Getting Fade" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/cr=t:10%25,l:10%25,w:80%25,h:80%25/rs=w:440,h:330,cg:true" alt="Kids Style" style="width:300px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/cr=t:10%25,l:10%25,w:80%25,h:80%25/rs=w:440,h:330,cg:true" alt="Beard Detail" style="width:300px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:0%25,l:5%25,w:90%25,h:100%25/rs=w:440,h:330,cg:true" alt="Jay at Work" style="width:340px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:10%25,l:10%25,w:80%25,h:80%25/rs=w:440,h:330,cg:true" alt="Leigh Portrait" style="width:300px">
   </div>
+  <!-- ROW 2: Services & Extras -->
   <div class="photo-strip scroll-right" style="margin-top:12px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:400,h:300,cg:true" alt="Threading" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/rs=w:400,h:300,cg:true,m" alt="Facials" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/blob-969b28d.png/:/rs=w:400,h:300,cg:true" alt="Facial" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/1865/:/rs=w:400,h:300,cg:true" alt="Shave" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/WbW1Plg/:/rs=w:400,h:300,cg:true" alt="Beard" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/uGdxKKo2epTNN7Rlq/:/rs=w:400,h:300,cg:true" alt="Trim" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/RyQjW1J/:/rs=w:400,h:300,cg:true" alt="Brows" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/opb2PoB/:/rs=w:400,h:300,cg:true" alt="Facial" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:400,h:300,cg:true" alt="Threading" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/rs=w:400,h:300,cg:true,m" alt="Facials" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/blob-969b28d.png/:/rs=w:400,h:300,cg:true" alt="Facial" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/1865/:/rs=w:400,h:300,cg:true" alt="Shave" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/WbW1Plg/:/rs=w:400,h:300,cg:true" alt="Beard" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/uGdxKKo2epTNN7Rlq/:/rs=w:400,h:300,cg:true" alt="Trim" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/RyQjW1J/:/rs=w:400,h:300,cg:true" alt="Brows" style="width:280px">
-    <img src="https://img1.wsimg.com/isteam/stock/opb2PoB/:/rs=w:400,h:300,cg:true" alt="Facial" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:400,h:300,cg:true" alt="Eyebrow Threading" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/rs=w:400,h:300,cg:true,m" alt="Men's Facials" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/blob-969b28d.png/:/rs=w:400,h:300,cg:true" alt="Premium Facial" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/1865/:/rs=w:400,h:300,cg:true" alt="Wet Shave" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/WbW1Plg/:/rs=w:400,h:300,cg:true" alt="Beard Trim" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/uGdxKKo2epTNN7Rlq/:/rs=w:400,h:300,cg:true" alt="Beard Waxing" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/RyQjW1J/:/rs=w:400,h:300,cg:true" alt="Eyebrows" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/opb2PoB/:/rs=w:400,h:300,cg:true" alt="Facial Treatment" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/cr=t:10%25,l:5%25,w:90%25,h:80%25/rs=w:400,h:300,cg:true" alt="Threading Close-Up" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/cr=t:10%25,l:15%25,w:70%25,h:80%25/rs=w:400,h:300,cg:true,m" alt="Facial Service" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/blob-969b28d.png/:/cr=t:10%25,l:5%25,w:90%25,h:80%25/rs=w:400,h:300,cg:true" alt="Facial Detail" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/1865/:/cr=t:5%25,l:10%25,w:80%25,h:90%25/rs=w:400,h:300,cg:true" alt="Classic Shave" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/WbW1Plg/:/cr=t:5%25,l:5%25,w:90%25,h:90%25/rs=w:400,h:300,cg:true" alt="Beard Work" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/uGdxKKo2epTNN7Rlq/:/cr=t:10%25,l:10%25,w:80%25,h:80%25/rs=w:400,h:300,cg:true" alt="Grooming" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/RyQjW1J/:/cr=t:10%25,l:5%25,w:90%25,h:80%25/rs=w:400,h:300,cg:true" alt="Brow Shaping" style="width:280px">
+    <img src="https://img1.wsimg.com/isteam/stock/opb2PoB/:/cr=t:5%25,l:10%25,w:80%25,h:90%25/rs=w:400,h:300,cg:true" alt="Skin Care" style="width:280px">
+  </div>
+  <!-- ROW 3: Team & Shop Atmosphere -->
+  <div class="photo-strip scroll-left" style="margin-top:12px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:500,h:280,cg:true,m" alt="Richie Working" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:0%25,l:0%25,w:100%25,h:75%25/rs=w:500,h:280,cg:true" alt="Jay Portrait" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:0%25,l:0%25,w:100%25,h:75%25/rs=w:500,h:280,cg:true" alt="Leigh Portrait" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:0%25,l:0%25,w:100%25,h:60%25/rs=w:500,h:280,cg:true,m" alt="Precision Fade" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:60%25/rs=w:500,h:280,cg:true,m" alt="Kid Client" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:70%25/rs=w:500,h:280,cg:true" alt="Young Client" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/cr=t:0%25,l:0%25,w:100%25,h:75%25/rs=w:500,h:280,cg:true" alt="Beard Service" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:10%25,l:0%25,w:100%25,h:65%25/rs=w:500,h:280,cg:true" alt="Classic Cut" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/cr=t:20%25,l:0%25,w:100%25,h:60%25/rs=w:500,h:280,cg:true,m" alt="At the Chair" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:10%25,l:10%25,w:80%25,h:70%25/rs=w:500,h:280,cg:true" alt="Jay Style" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:5%25,l:5%25,w:90%25,h:70%25/rs=w:500,h:280,cg:true" alt="Leigh at Chair" style="width:380px">
+    <img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:75%25/rs=w:500,h:280,cg:true,m" alt="Facial Room" style="width:380px">
   </div>
 </section>
 
