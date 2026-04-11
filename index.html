@@ -14,17 +14,12 @@ body.splash-active{overflow:hidden}
 body::before{content:'';position:fixed;inset:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
 /* SPLASH SCREEN */
-.splash{position:fixed;inset:0;z-index:10000;background:#030303;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s ease,visibility .8s ease;cursor:pointer}
+.splash{position:fixed;inset:0;z-index:10000;background:#030303;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s ease,visibility .8s ease}
 .splash.done{opacity:0;visibility:hidden;pointer-events:none}
-.splash-logo{width:220px;height:auto;opacity:.08;filter:brightness(.3);transition:none}
-.splash-logo.animate{animation:flicker 2.8s ease forwards}
-.splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,75,.12),transparent 70%);opacity:0;pointer-events:none}
-.splash-glow.animate{animation:glowPulse 2.8s ease forwards}
-.splash-text{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:28px}
-.splash-text.animate{animation:splashTextIn 1s 2.2s ease forwards}
-.splash-info{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);opacity:0;margin-top:12px}
-.splash-info.animate-late{animation:splashTextIn .8s 2.6s ease forwards}
-.splash-enter{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:rgba(212,168,75,.5);position:absolute;bottom:80px;animation:splashTapPulse 2s ease-in-out infinite}
+.splash-logo{width:220px;height:auto;opacity:0;filter:brightness(0);animation:flicker 2.8s ease forwards}
+.splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,75,.12),transparent 70%);opacity:0;pointer-events:none;animation:glowPulse 2.8s ease forwards}
+.splash-text{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:28px;animation:splashTextIn 1s 2.2s ease forwards}
+.splash-info{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1.5px;color:var(--text);opacity:0;margin-top:14px;animation:splashTextIn .8s 2.5s ease forwards}
 
 /* Broken lightbulb flicker — starts dark, blinks erratically, then holds steady */
 @keyframes flicker{
@@ -113,7 +108,7 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 .hero-sub{max-width:480px;margin:28px auto 0;font-size:16px;line-height:1.7;color:var(--text-dim);opacity:0;animation:fadeUp 1s .8s var(--ease) forwards}
 .hero-actions{margin-top:44px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 1s var(--ease) forwards}
 .hero-contact{margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp 1s 1.2s var(--ease) forwards}
-.hero-contact-item{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;color:var(--text-muted);text-decoration:none;transition:color .3s}
+.hero-contact-item{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--text);text-decoration:none;transition:color .3s}
 .hero-contact-item:hover{color:var(--gold)}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--bg);padding:18px 44px;border-radius:100px;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all .4s var(--ease);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(212,168,75,.2)}
 .btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 48px rgba(212,168,75,.35)}
@@ -286,11 +281,10 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 
 <!-- SPLASH SCREEN -->
 <div class="splash" id="splash">
-  <div class="splash-glow" id="splashGlow"></div>
-  <img class="splash-logo" id="splashLogo" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers">
-  <p class="splash-text" id="splashText">Cherry Hill, NJ</p>
-  <p class="splash-info" id="splashInfo">484 E Evesham Rd, Suite 6 · (856) 295-2244</p>
-  <p class="splash-enter" id="splashEnter">Tap to Enter</p>
+  <div class="splash-glow"></div>
+  <img class="splash-logo" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers">
+  <p class="splash-text">Cherry Hill, NJ</p>
+  <p class="splash-info">484 E Evesham Rd, Suite 6 · (856) 295-2244</p>
 </div>
 
 <nav id="navbar">
@@ -557,72 +551,13 @@ window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.transform=`translateY(-6px) perspective(800px) rotateY(${((e.clientX-r.left)/r.width-.5)*4}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*4}deg)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})});
 
-// Splash screen — tap to start, only on first visit per session, main page only
+// Splash screen — autoplay on initial visit only
 (function(){
   const splash=document.getElementById('splash');
   if(!splash)return;
-  // Skip splash if already seen this session
   try{if(sessionStorage.getItem('bb_splash_seen')){splash.remove();document.body.classList.remove('splash-active');return}}catch(e){}
-
-  let fired=false;
-  function startSplash(){
-    if(fired)return;fired=true;
-    try{sessionStorage.setItem('bb_splash_seen','1')}catch(e){}
-    // Hide enter prompt
-    document.getElementById('splashEnter').style.display='none';
-    // Start animations
-    document.getElementById('splashLogo').classList.add('animate');
-    document.getElementById('splashGlow').classList.add('animate');
-    document.getElementById('splashText').classList.add('animate');
-    document.getElementById('splashInfo').classList.add('animate-late');
-
-    // Audio — plays because inside user gesture
-    const AC=window.AudioContext||window.webkitAudioContext;
-    if(AC){
-      const ctx=new AC();
-      function buzz(time,dur,vol){
-        const o=ctx.createOscillator(),g=ctx.createGain(),o2=ctx.createOscillator(),g2=ctx.createGain();
-        o.type='sawtooth';o.frequency.value=120;
-        g.gain.setValueAtTime(0,time);g.gain.linearRampToValueAtTime(vol*.15,time+.01);
-        g.gain.linearRampToValueAtTime(vol*.1,time+dur*.5);g.gain.linearRampToValueAtTime(0,time+dur);
-        o2.type='square';o2.frequency.value=60;
-        g2.gain.setValueAtTime(0,time);g2.gain.linearRampToValueAtTime(vol*.08,time+.005);
-        g2.gain.linearRampToValueAtTime(0,time+dur*.7);
-        o.connect(g);g.connect(ctx.destination);o2.connect(g2);g2.connect(ctx.destination);
-        o.start(time);o.stop(time+dur);o2.start(time);o2.stop(time+dur);
-      }
-      function crackle(time,dur,vol){
-        const bufSize=ctx.sampleRate*dur;const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
-        const d=buf.getChannelData(0);for(let i=0;i<bufSize;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/bufSize,2);
-        const src=ctx.createBufferSource(),g=ctx.createGain();src.buffer=buf;g.gain.value=vol*.12;
-        src.connect(g);g.connect(ctx.destination);src.start(time);
-      }
-      const t=ctx.currentTime;
-      buzz(t+.22,.12,.5);crackle(t+.22,.08,.6);
-      buzz(t+.56,.1,.7);crackle(t+.55,.06,.7);
-      buzz(t+.64,.08,.5);
-      buzz(t+.7,.1,.75);crackle(t+.7,.07,.7);
-      buzz(t+.98,.08,1);crackle(t+.97,.1,.9);
-      buzz(t+1.04,.06,.4);
-      buzz(t+1.09,.1,1);crackle(t+1.08,.08,.9);
-      buzz(t+1.54,.1,.8);crackle(t+1.53,.06,.7);
-      buzz(t+1.6,.06,.3);
-      buzz(t+1.68,.15,1);crackle(t+1.67,.1,1);
-      buzz(t+1.74,.05,.4);
-      buzz(t+1.9,.3,.9);crackle(t+1.9,.15,.6);
-      buzz(t+2.18,.5,.6);
-    }
-    // Lion roar at peak
-    const roar=new Audio('https://cdn.freesound.org/previews/464/464515_3575726-lq.mp3');
-    roar.volume=0.6;
-    setTimeout(()=>{roar.play().catch(()=>{})},2400);
-
-    // Dismiss splash after animation
-    setTimeout(()=>{splash.classList.add('done');document.body.classList.remove('splash-active');setTimeout(()=>splash.remove(),1000)},3800);
-  }
-
-  splash.addEventListener('click',startSplash);
-  splash.addEventListener('touchstart',startSplash);
+  try{sessionStorage.setItem('bb_splash_seen','1')}catch(e){}
+  setTimeout(()=>{splash.classList.add('done');document.body.classList.remove('splash-active');setTimeout(()=>splash.remove(),1000)},3800);
 })();
 
 // Mobile menu close button
