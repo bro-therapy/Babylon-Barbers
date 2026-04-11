@@ -687,6 +687,10 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 history.scrollRestoration='manual';
 window.scrollTo(0,0);
 
+// Immediately try to play hero video
+const heroVideo=document.querySelector('.hero-video');
+if(heroVideo){heroVideo.muted=true;heroVideo.play().catch(()=>{});}
+
 const nav=document.getElementById('navbar');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)},{passive:true});
 
 // Hamburger menu
@@ -702,7 +706,16 @@ document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.a
 (function(){
   const splash=document.getElementById('splash');
   if(!splash)return;
-  setTimeout(()=>{splash.classList.add('done');document.body.classList.remove('splash-active');setTimeout(()=>splash.remove(),1000)},3800);
+  setTimeout(()=>{
+    splash.classList.add('done');
+    document.body.classList.remove('splash-active');
+    // Force hero video to play after splash clears
+    const heroVid=document.querySelector('.hero-video');
+    if(heroVid){heroVid.muted=true;heroVid.play().catch(()=>{})}
+    // Also force all other videos
+    document.querySelectorAll('video').forEach(v=>{v.muted=true;v.play().catch(()=>{})});
+    setTimeout(()=>splash.remove(),1000);
+  },3800);
 })();
 
 // Force autoplay on all videos when they scroll into view
