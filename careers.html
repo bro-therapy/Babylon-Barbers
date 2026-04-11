@@ -20,7 +20,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .nav-links a:hover::after{width:100%}.nav-links a:hover{color:var(--gold)}
 .nav-links a.active{color:var(--gold)}
 .nav-cta{background:var(--gold)!important;color:var(--bg)!important;padding:12px 32px;border-radius:100px;font-weight:700;letter-spacing:1.5px!important;font-size:12px!important;box-shadow:0 2px 12px rgba(212,168,75,.2)}
-.nav-cta::after{display:none!important}.nav-cta:hover{transform:scale(1.06);box-shadow:0 4px 30px rgba(212,168,75,.4)}
+.nav-cta::after{display:none!important}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:200;padding:8px;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s var(--ease)}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translateY(5px) translateX(5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translateY(-5px) translateX(5px)}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:150;background:rgba(5,5,5,.97);backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:all .4s var(--ease)}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{font-size:16px;letter-spacing:4px;text-transform:uppercase;color:var(--text);text-decoration:none;font-weight:500;transition:color .3s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .nav-cta{margin-top:12px;padding:16px 48px;font-size:14px!important}.nav-cta:hover{transform:scale(1.06);box-shadow:0 4px 30px rgba(212,168,75,.4)}
 
 .page-hero{padding:180px 48px 80px;text-align:center;position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 30%,rgba(212,168,75,.06),transparent 70%)}
@@ -59,7 +70,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 .footer-social{display:flex;gap:16px;justify-content:center;margin:20px 0}
 .social-circle{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--text-dim);transition:all .3s var(--ease)}.social-circle:hover{border-color:var(--gold);background:rgba(212,168,75,.08);color:var(--gold)}.social-circle svg{fill:currentColor}
 
-@media(max-width:768px){.nav-links{display:none}.page-hero{padding:140px 24px 60px}.section{padding:60px 24px}.careers-grid{grid-template-columns:1fr}footer{padding:40px 20px 32px}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.mobile-menu{display:flex}.page-hero{padding:140px 24px 60px}.section{padding:60px 24px}.careers-grid{grid-template-columns:1fr}footer{padding:40px 20px 32px}}
 </style>
 </head>
 <body>
@@ -67,7 +78,18 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 <nav>
   <a href="index.html" class="nav-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></a>
   <div class="nav-links"><a href="index.html">Home</a><a href="index.html#services">Services</a><a href="careers.html" class="active">Careers</a><a href="merch.html">Merch</a><a href="contact.html">Contact</a><a href="https://babylonbookings.com/app" class="nav-cta">Book Now</a></div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="index.html#services">Services</a>
+  <a href="careers.html">Careers</a>
+  <a href="merch.html">Merch</a>
+  <a href="contact.html">Contact</a>
+  <a href="https://babylonbookings.com/app" class="nav-cta">Book Now</a>
+</div>
+
 
 <div class="page-hero">
   <p class="page-hero-tag">Join the Team</p>
@@ -119,5 +141,11 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
   <p class="footer-copy">© 2026 Babylon Barbers Corporation. All Rights Reserved.</p>
 </footer>
 
+
+<script>
+const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+if(hamburger&&mobileMenu){hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open');document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':''});
+document.querySelectorAll('.mobile-menu a').forEach(a=>{a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');document.body.style.overflow=''})})}
+</script>
 </body>
 </html>
