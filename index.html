@@ -86,14 +86,14 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 
 /* HERO */
 .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.25;filter:brightness(.6) saturate(.7)}
-.hero-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(5,5,5,.5) 0%,rgba(5,5,5,.3) 40%,rgba(5,5,5,.5) 70%,rgba(5,5,5,.95) 100%),radial-gradient(ellipse 80% 60% at 50% 40%,transparent 0%,rgba(5,5,5,.4) 100%)}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.35;filter:brightness(.7) saturate(.7)}
+.hero-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(5,5,5,.3) 0%,rgba(5,5,5,.15) 35%,rgba(5,5,5,.3) 65%,rgba(5,5,5,.9) 100%)}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,168,75,.06) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 70% 60%,rgba(212,168,75,.04) 0%,transparent 60%);z-index:2}
 .hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-line{position:absolute;width:1px;background:linear-gradient(to bottom,transparent,rgba(212,168,75,.08),transparent);height:120%;top:-10%}
 .hero-line:nth-child(1){left:20%}.hero-line:nth-child(2){left:40%}.hero-line:nth-child(3){left:60%}.hero-line:nth-child(4){left:80%}
-.hero-content{position:relative;z-index:2;text-align:center;padding:0 24px}
-.hero-logo{margin-bottom:32px;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}.hero-logo img{height:80px}
+.hero-content{position:relative;z-index:2;text-align:center;padding:80px 24px 0}
+.hero-logo{margin-bottom:32px;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}.hero-logo img{height:110px}
 .hero-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp 1s .5s var(--ease) forwards}
 .hero-title{font-family:'Instrument Serif',serif;font-size:clamp(48px,9vw,120px);line-height:.92;font-weight:400;letter-spacing:-2px;opacity:0;animation:fadeUp 1s .6s var(--ease) forwards}
 .hero-title em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
