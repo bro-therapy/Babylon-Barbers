@@ -4,8 +4,8 @@
   "description": "Premium barbershop in Cherry Hill, NJ",
   "start_url": "/Babylon-Barbers/",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#050505",
+  "background_color": "#151632",
+  "theme_color": "#151632",
   "icons": [
     {
       "src": "images/icon-192.png",
