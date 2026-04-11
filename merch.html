@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Merchandise — Babylon Barbers</title>
+<script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -57,6 +58,42 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .merch-card-body h4{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;margin-bottom:6px}
 .merch-card-body p{font-size:13px;color:var(--text-dim);margin-bottom:12px}
 .merch-price{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--gold)}
+.merch-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.btn-add-cart{padding:10px 20px;background:var(--gold);color:var(--bg);border:none;border-radius:100px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s var(--ease);box-shadow:0 2px 12px rgba(212,168,75,.2)}
+.btn-add-cart:hover{transform:scale(1.05);box-shadow:0 6px 24px rgba(212,168,75,.3)}
+.btn-add-cart.added{background:#2a6e2a;pointer-events:none}
+
+/* CART ICON */
+.cart-icon{position:fixed;top:24px;right:24px;z-index:200;width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(212,168,75,.3);transition:all .3s var(--ease);font-size:20px}
+.cart-icon:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(212,168,75,.4)}
+.cart-badge{position:absolute;top:-4px;right:-4px;width:20px;height:20px;border-radius:50%;background:#e45;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace}
+.cart-badge:empty{display:none}
+
+/* CART DRAWER */
+.cart-drawer{position:fixed;top:0;right:-400px;width:380px;max-width:90vw;height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:300;transition:right .4s var(--ease);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.5)}
+.cart-drawer.open{right:0}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:250;opacity:0;visibility:hidden;transition:all .3s}.cart-overlay.open{opacity:1;visibility:visible}
+.cart-header{padding:24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.cart-header h3{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400}
+.cart-close{background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .3s}.cart-close:hover{background:rgba(212,168,75,.1);color:var(--gold)}
+.cart-items{flex:1;overflow-y:auto;padding:16px 24px}
+.cart-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.04);align-items:center}
+.cart-item img{width:64px;height:64px;border-radius:10px;object-fit:cover;border:1px solid var(--border)}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.cart-item-price{font-family:'Space Mono',monospace;font-size:13px;color:var(--gold)}
+.cart-item-qty{display:flex;align-items:center;gap:10px}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}.qty-btn:hover{border-color:var(--gold);color:var(--gold)}
+.qty-num{font-family:'Space Mono',monospace;font-size:14px;min-width:20px;text-align:center}
+.cart-footer{padding:24px;border-top:1px solid var(--border)}
+.cart-total{display:flex;justify-content:space-between;font-size:16px;font-weight:600;margin-bottom:20px}
+.cart-total span:last-child{font-family:'Space Mono',monospace;color:var(--gold);font-size:20px}
+.cart-empty{text-align:center;padding:60px 24px;color:var(--text-muted);font-size:14px}
+.btn-checkout{width:100%;padding:16px;background:var(--gold);color:var(--bg);border:none;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .4s var(--ease);box-shadow:0 4px 20px rgba(212,168,75,.2);margin-bottom:12px}
+.btn-checkout:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(212,168,75,.35)}
+.btn-gpay{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .3s var(--ease);display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-gpay:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,.15)}
+.btn-gpay svg{height:20px}
 
 .notify-form{max-width:480px;margin:0 auto;display:flex;gap:12px}
 .notify-form input{flex:1;padding:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:100px;color:var(--text);font-family:'Syne',sans-serif;font-size:14px;outline:none;transition:border-color .3s}
@@ -104,15 +141,15 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
   <div class="merch-grid">
     <div class="merch-card">
       <div class="merch-card-img"><img src="images/merch-fanny-worn.jpg" alt="Babylon Fanny Pack" style="width:100%;height:100%;object-fit:cover"></div>
-      <div class="merch-card-body"><h4>Fanny Pack</h4><p>Black crossbody bag with gold Babylon lion logo. Built for the shop and the streets.</p><div class="merch-price">$20.00</div></div>
+      <div class="merch-card-body"><h4>Fanny Pack</h4><p>Black crossbody bag with gold Babylon lion logo. Built for the shop and the streets.</p><div class="merch-price-row"><div class="merch-price">$20.00</div><button class="btn-add-cart" data-name="Fanny Pack" data-price="20" data-img="images/merch-fanny-worn.jpg">Add to Cart</button></div></div>
     </div>
     <div class="merch-card">
       <div class="merch-card-img"><img src="images/merch-fanny-turf.jpg" alt="Babylon Fanny Pack" style="width:100%;height:100%;object-fit:cover"></div>
-      <div class="merch-card-body"><h4>Fanny Pack</h4><p>Premium branded crossbody with embossed "BABYLON" strap. Compact, durable, clean.</p><div class="merch-price">$20.00</div></div>
+      <div class="merch-card-body"><h4>Fanny Pack</h4><p>Premium branded crossbody with embossed "BABYLON" strap. Compact, durable, clean.</p><div class="merch-price-row"><div class="merch-price">$20.00</div><button class="btn-add-cart" data-name="Fanny Pack (Turf)" data-price="20" data-img="images/merch-fanny-turf.jpg">Add to Cart</button></div></div>
     </div>
     <div class="merch-card">
       <div class="merch-card-img"><img src="images/merch-balm.jpg" alt="Babylon Hair & Beard Balm" style="width:100%;height:100%;object-fit:cover"></div>
-      <div class="merch-card-body"><h4>Hair & Beard Balm</h4><p>Babylon Barbers Natural Look formula. Smooths and straightens. 4 FL OZ.</p><div class="merch-price">$20.00</div></div>
+      <div class="merch-card-body"><h4>Hair & Beard Balm</h4><p>Babylon Barbers Natural Look formula. Smooths and straightens. 4 FL OZ.</p><div class="merch-price-row"><div class="merch-price">$20.00</div><button class="btn-add-cart" data-name="Hair & Beard Balm" data-price="20" data-img="images/merch-balm.jpg">Add to Cart</button></div></div>
     </div>
   </div>
 
@@ -140,12 +177,98 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 </footer>
 
 
+<!-- CART -->
+<div class="cart-icon" id="cartIcon">🛒<span class="cart-badge" id="cartBadge"></span></div>
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header"><h3>Your Cart</h3><button class="cart-close" id="cartClose">✕</button></div>
+  <div class="cart-items" id="cartItems"><div class="cart-empty">Your cart is empty</div></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <button class="btn-checkout" id="btnCheckout">Checkout →</button>
+    <button class="btn-gpay" id="btnGpay">
+      <svg viewBox="0 0 41 17" xmlns="http://www.w3.org/2000/svg"><path d="M19.526 2.635v4.083h2.518c.6 0 1.096-.202 1.488-.605.403-.402.605-.882.605-1.437 0-.544-.202-1.018-.605-1.422-.392-.413-.888-.62-1.488-.62h-2.518zm0 5.52v4.736h-1.504V1.198h3.99c1.013 0 1.873.337 2.582 1.012.72.675 1.08 1.497 1.08 2.466 0 .991-.36 1.819-1.08 2.482-.697.665-1.559.996-2.583.996h-2.485v.001zm7.668 2.287c0 .392.166.718.499.98.332.26.722.391 1.168.391.633 0 1.196-.234 1.692-.701.497-.469.744-1.019.744-1.65-.469-.37-1.123-.555-1.962-.555-.61 0-1.12.148-1.528.442-.409.295-.613.65-.613 1.093zm-.06-5.606l1.36-.543c.501-.796 1.296-1.193 2.386-1.193 1.024 0 1.834.296 2.429.888.594.591.891 1.396.891 2.416v4.87h-1.44v-1.098h-.065c-.58.873-1.353 1.309-2.321 1.309-.842 0-1.543-.246-2.106-.74-.562-.492-.844-1.114-.844-1.866 0-.793.303-1.424.909-1.893.607-.47 1.42-.705 2.44-.705.872 0 1.593.149 2.164.446v-.312c0-.489-.196-.904-.588-1.246-.392-.342-.863-.514-1.416-.514-.804 0-1.44.37-1.908 1.109l-1.327-.665c.685-1.08 1.692-1.621 3.022-1.621zm-7.608 5.504h-.065v-1.386h1.44V1.198h1.504v13.574h-1.504V13.27l.065-.06h.065c-.695.927-1.592 1.39-2.693 1.39-1.013 0-1.869-.377-2.57-1.131-.7-.755-1.05-1.697-1.05-2.826 0-1.14.35-2.085 1.05-2.838.701-.752 1.557-1.129 2.57-1.129 1.1 0 1.998.464 2.693 1.39z" fill="#5f6368"/><path d="M11.088 8.412c0-.476-.042-.93-.121-1.36H5.656v2.572h3.044c-.131.707-.53 1.307-1.13 1.708v1.42h1.83c1.07-.986 1.688-2.438 1.688-4.34z" fill="#4285f4"/><path d="M5.656 13.028c1.528 0 2.81-.507 3.748-1.376l-1.83-1.42c-.507.34-1.156.54-1.918.54-1.474 0-2.722-.995-3.168-2.333H.604v1.465c.932 1.85 2.85 3.124 5.052 3.124z" fill="#34a853"/><path d="M2.488 8.439c-.114-.339-.179-.7-.179-1.074 0-.374.065-.735.179-1.074V4.826H.604A5.677 5.677 0 000 7.365c0 .916.22 1.784.604 2.539l1.884-1.465z" fill="#fbbc04"/><path d="M5.656 3.958c.832 0 1.58.286 2.167.847l1.625-1.625C8.46 2.09 7.184 1.504 5.656 1.504 3.454 1.504 1.536 2.778.604 4.628l1.884 1.465c.446-1.338 1.694-2.135 3.168-2.135z" fill="#ea4335"/></svg>
+      Pay with Google Pay
+    </button>
+  </div>
+</div>
+
 <script>
 const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
 if(hamburger&&mobileMenu){hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open');document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':''});
 document.querySelectorAll('.mobile-menu a').forEach(a=>{a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');document.body.style.overflow=''})})}
 const closeBtn=document.getElementById('mobileMenuClose');
 if(closeBtn){closeBtn.addEventListener('click',()=>{document.getElementById('hamburger').classList.remove('open');document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''})}
+
+// Cart system
+(function(){
+  let cart=[];
+  const drawer=document.getElementById('cartDrawer'),overlay=document.getElementById('cartOverlay'),
+    badge=document.getElementById('cartBadge'),itemsEl=document.getElementById('cartItems'),
+    footer=document.getElementById('cartFooter'),totalEl=document.getElementById('cartTotal');
+
+  function openCart(){drawer.classList.add('open');overlay.classList.add('open');document.body.style.overflow='hidden'}
+  function closeCart(){drawer.classList.remove('open');overlay.classList.remove('open');document.body.style.overflow=''}
+  document.getElementById('cartIcon').addEventListener('click',openCart);
+  document.getElementById('cartClose').addEventListener('click',closeCart);
+  overlay.addEventListener('click',closeCart);
+
+  function renderCart(){
+    const count=cart.reduce((s,i)=>s+i.qty,0);
+    badge.textContent=count||'';
+    if(!cart.length){
+      itemsEl.innerHTML='<div class="cart-empty">Your cart is empty</div>';
+      footer.style.display='none';return;
+    }
+    footer.style.display='block';
+    let total=0;
+    itemsEl.innerHTML=cart.map((item,i)=>{
+      total+=item.price*item.qty;
+      return '<div class="cart-item"><img src="'+item.img+'" alt="'+item.name+'"><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">$'+item.price.toFixed(2)+'</div></div><div class="cart-item-qty"><button class="qty-btn" data-i="'+i+'" data-d="-1">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" data-i="'+i+'" data-d="1">+</button></div></div>';
+    }).join('');
+    totalEl.textContent='$'+total.toFixed(2);
+    itemsEl.querySelectorAll('.qty-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const idx=parseInt(b.dataset.i),d=parseInt(b.dataset.d);
+        cart[idx].qty+=d;
+        if(cart[idx].qty<=0)cart.splice(idx,1);
+        renderCart();
+      });
+    });
+  }
+
+  document.querySelectorAll('.btn-add-cart').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const name=btn.dataset.name,price=parseFloat(btn.dataset.price),img=btn.dataset.img;
+      const existing=cart.find(i=>i.name===name);
+      if(existing){existing.qty++}else{cart.push({name,price,img,qty:1})}
+      btn.textContent='✓ Added';btn.classList.add('added');
+      setTimeout(()=>{btn.textContent='Add to Cart';btn.classList.remove('added')},1500);
+      renderCart();openCart();
+    });
+  });
+
+  // Checkout
+  document.getElementById('btnCheckout').addEventListener('click',()=>{
+    const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+    const items=cart.map(i=>i.name+' x'+i.qty).join(', ');
+    alert('Checkout coming soon!\\n\\nOrder: '+items+'\\nTotal: $'+total.toFixed(2)+'\\n\\nFor now, please visit us in-store or call (856) 295-2244 to order.');
+  });
+
+  // Google Pay
+  document.getElementById('btnGpay').addEventListener('click',()=>{
+    const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+    if(typeof google!=='undefined'&&google.payments){
+      const client=new google.payments.api.PaymentsClient({environment:'PRODUCTION'});
+      const req={apiVersion:2,apiVersionMinor:0,allowedPaymentMethods:[{type:'CARD',parameters:{allowedAuthMethods:['PAN_ONLY','CRYPTOGRAM_3DS'],allowedCardNetworks:['VISA','MASTERCARD','AMEX']},tokenizationSpecification:{type:'PAYMENT_GATEWAY',parameters:{gateway:'stripe',stripe:{version:'2018-10-31',publishableKey:'pk_live_placeholder'}}}}],transactionInfo:{totalPriceStatus:'FINAL',totalPrice:total.toFixed(2),currencyCode:'USD',countryCode:'US'},merchantInfo:{merchantName:'Babylon Barbers'}};
+      client.loadPaymentData(req).then(d=>{alert('Payment successful! Thank you for your order.');cart=[];renderCart();closeCart()}).catch(e=>{if(e.statusCode!=='CANCELED')alert('Payment could not be processed. Please try again or visit us in-store.')});
+    }else{
+      alert('Google Pay is available on supported devices and browsers.\\n\\nTotal: $'+total.toFixed(2)+'\\n\\nPlease visit us in-store or call (856) 295-2244 to order.');
+    }
+  });
+
+  renderCart();
+})();
 </script>
 </body>
 </html>
