@@ -42,7 +42,8 @@ body::before{content:'';position:fixed;inset:0;opacity:0.012;background-image:ur
 .splash-logo{width:220px;height:auto;opacity:0;filter:brightness(0);animation:flicker 2.8s ease forwards}
 .splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,75,.12),transparent 70%);opacity:0;pointer-events:none;animation:glowPulse 2.8s ease forwards}
 .splash-text{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:28px;animation:splashTextIn 1s 2.2s ease forwards}
-.splash-info{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1.5px;color:var(--text);opacity:0;margin-top:14px;animation:splashTextIn .8s 2.5s ease forwards;text-decoration:none;-webkit-text-fill-color:var(--text)}
+.splash-info{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text);opacity:0;margin-top:14px;animation:splashTextIn .8s 2.5s ease forwards;text-align:center;line-height:1.8}
+.splash-info,.splash-info *{text-decoration:none!important;color:var(--text)!important;-webkit-text-fill-color:var(--text)!important;pointer-events:none}
 
 /* Broken lightbulb flicker — starts dark, blinks erratically, then holds steady */
 @keyframes flicker{
@@ -140,15 +141,15 @@ nav.scrolled{background:rgba(6,6,6,.92);backdrop-filter:blur(24px) saturate(1.4)
 
 /* MARQUEE */
 .marquee-section{padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
-.marquee-track{display:flex;gap:60px;width:max-content}
+.marquee-track{display:flex;gap:60px;width:max-content;will-change:transform}
 .marquee-track.left{animation:marqueeL 25s linear infinite}
 .marquee-track.right{animation:marqueeR 30s linear infinite}
-.marquee-item{font-family:'Instrument Serif',serif;font-size:20px;color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:20px}
-.marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.5}
+.marquee-item{font-family:'Instrument Serif',serif;font-size:20px;color:var(--text-muted);white-space:nowrap;display:flex;align-items:center;gap:20px;flex-shrink:0}
+.marquee-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.5;flex-shrink:0}
 
 /* PHOTO CAROUSEL */
 .photo-carousel-section{padding:0;overflow:hidden;background:var(--bg)}
-.photo-strip{display:flex;gap:12px;padding:12px 0;width:max-content}
+.photo-strip{display:flex;gap:12px;padding:12px 0;width:max-content;will-change:transform}
 .photo-strip.scroll-left{animation:marqueeL 40s linear infinite}
 .photo-strip.scroll-right{animation:marqueeR 45s linear infinite}
 .photo-strip img{height:220px;border-radius:12px;object-fit:cover;flex-shrink:0;border:1px solid var(--border);transition:transform .4s var(--ease)}
@@ -291,8 +292,8 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 .reveal-left{opacity:0;transform:translateX(-40px);transition:all .9s var(--ease)}.reveal-left.visible{opacity:1;transform:translateX(0)}
 .reveal-right{opacity:0;transform:translateX(40px);transition:all .9s var(--ease)}.reveal-right.visible{opacity:1;transform:translateX(0)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes marqueeL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes marqueeR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes marqueeL{from{transform:translateX(0)}to{transform:translateX(-33.333%)}}
+@keyframes marqueeR{from{transform:translateX(-33.333%)}to{transform:translateX(0)}}
 @keyframes scrollPulse{0%,100%{opacity:1;height:48px}50%{opacity:.3;height:32px}}
 @keyframes slowSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
@@ -309,7 +310,10 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
   <div class="splash-glow"></div>
   <img class="splash-logo" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers">
   <p class="splash-text">Cherry Hill, NJ</p>
-  <p class="splash-info">484 E Evesham Rd, Suite 6 · <span style="unicode-bidi:bidi-override;direction:ltr">(856) 295‑2244</span></p>
+  <div class="splash-info">
+    <span>484 E Evesham Rd, Suite 6</span><br>
+    <span>(<span>8</span>5<span>6</span>) 2<span>9</span>5–22<span>4</span>4</span>
+  </div>
 </div>
 
 <!-- AMBIENT GLOW ORBS -->
@@ -352,6 +356,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 </section>
 
 <div class="marquee-section"><div class="marquee-track left">
+  <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span><span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span><span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span><span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span><span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span><span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span><span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span><span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
   <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span><span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span><span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span><span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span><span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span><span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span><span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span><span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
   <span class="marquee-item">Taper Fades <span class="marquee-dot"></span></span><span class="marquee-item">Beard Shaping <span class="marquee-dot"></span></span><span class="marquee-item">Premium Facials <span class="marquee-dot"></span></span><span class="marquee-item">Kids Cuts <span class="marquee-dot"></span></span><span class="marquee-item">Hot Towel Shaves <span class="marquee-dot"></span></span><span class="marquee-item">Eyebrow Threading <span class="marquee-dot"></span></span><span class="marquee-item">Massage Therapy <span class="marquee-dot"></span></span><span class="marquee-item">Walk-Ins Welcome <span class="marquee-dot"></span></span>
 </div></div>
@@ -449,7 +454,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
   <div class="team-grid">
     <div class="team-card reveal"><div class="team-photo"><img src="images/mo-at-chair.jpeg" alt="Mohammed"></div><div class="team-info"><h3 class="team-name">Mohammed</h3><p class="team-role-tag">Owner & Founder</p><p class="team-desc">Drexel Engineering grad who traded blueprints for clippers at 15. His precision and love for the craft built Babylon from the ground up.</p></div></div>
     <div class="team-card reveal" style="transition-delay:.05s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/bablyon-august-13-2022%20(225%20of%20232).jpg/:/rs=w:600,h:600,cg:true,m/cr=w:600,h:600" alt="Richie"></div><div class="team-info"><h3 class="team-name">Richie</h3><p class="team-role-tag">Senior Barber · 7+ Years</p><p class="team-desc">From Bergen County to South Jersey, Richie's mastered every texture. Specializes in razor-sharp bald fades that speak for themselves.</p></div></div>
-    <div class="team-card reveal" style="transition-delay:.1s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Jay%20Site%20Photo%202.JPEG/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:600,h:600,cg:true" alt="Jay" style="object-position:center 20%"></div><div class="team-info"><h3 class="team-name">Jay</h3><p class="team-role-tag">Barber · Rising Talent</p><p class="team-desc">The youngest and first female barber to join the crew. Lehigh Valley trained with an unwavering passion that sharpens with every cut.</p></div></div>
+    <div class="team-card reveal" style="transition-delay:.1s"><div class="team-photo"><img src="https://s.yimg.com/bj/8696/8696fc4a70046bb666e65a764fd21d5a.jpg" alt="Jay"></div><div class="team-info"><h3 class="team-name">Jay</h3><p class="team-role-tag">Barber · Rising Talent</p><p class="team-desc">The youngest and first female barber to join the crew. Lehigh Valley trained with an unwavering passion that sharpens with every cut.</p></div></div>
     <div class="team-card reveal" style="transition-delay:.15s"><div class="team-photo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Web-1500-px---1.JPEG/:/cr=t:0%25,l:5.67%25,w:88.67%25,h:100%25/rs=w:600,h:600,cg:true" alt="Leigh"></div><div class="team-info"><h3 class="team-name">Leigh</h3><p class="team-role-tag">Senior Stylist · 17 Years</p><p class="team-desc">Nearly two decades in a male-dominated industry only fueled her fire. Leigh lets her clippers do the talking — and clients can't stop raving.</p></div></div>
   </div>
 </div></section>
