@@ -551,12 +551,10 @@ window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.transform=`translateY(-6px) perspective(800px) rotateY(${((e.clientX-r.left)/r.width-.5)*4}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*4}deg)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})});
 
-// Splash screen — autoplay on initial visit only
+// Splash screen — autoplay every visit to main page
 (function(){
   const splash=document.getElementById('splash');
   if(!splash)return;
-  try{if(sessionStorage.getItem('bb_splash_seen')){splash.remove();document.body.classList.remove('splash-active');return}}catch(e){}
-  try{sessionStorage.setItem('bb_splash_seen','1')}catch(e){}
   setTimeout(()=>{splash.classList.add('done');document.body.classList.remove('splash-active');setTimeout(()=>splash.remove(),1000)},3800);
 })();
 
