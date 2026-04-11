@@ -32,6 +32,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:fl
 .mobile-menu a{font-size:16px;letter-spacing:4px;text-transform:uppercase;color:var(--text);text-decoration:none;font-weight:500;transition:color .3s}
 .mobile-menu a:hover{color:var(--gold)}
 .mobile-menu .nav-cta{margin-top:12px;padding:16px 48px;font-size:14px!important}
+.mobile-menu-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--text);font-size:28px;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:all .3s var(--ease)}
+.mobile-menu-close:hover{color:var(--gold);background:rgba(212,168,75,.1)}
 
 .page-hero{padding:180px 48px 80px;text-align:center;position:relative;overflow:hidden}
 .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 30%,rgba(212,168,75,.06),transparent 70%)}
@@ -82,6 +84,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
   <a href="index.html">Home</a>
   <a href="index.html#services">Services</a>
   <a href="careers.html">Careers</a>
@@ -141,6 +144,8 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
 if(hamburger&&mobileMenu){hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobileMenu.classList.toggle('open');document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':''});
 document.querySelectorAll('.mobile-menu a').forEach(a=>{a.addEventListener('click',()=>{hamburger.classList.remove('open');mobileMenu.classList.remove('open');document.body.style.overflow=''})})}
+const closeBtn=document.getElementById('mobileMenuClose');
+if(closeBtn){closeBtn.addEventListener('click',()=>{document.getElementById('hamburger').classList.remove('open');document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''})}
 </script>
 </body>
 </html>
