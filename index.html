@@ -10,7 +10,61 @@
 :root{--gold:#D4A84B;--gold-light:#E8D08E;--gold-dark:#B08A30;--bg:#050505;--bg-warm:#0A0908;--text:#F0EBE1;--text-dim:#887F74;--text-muted:#5C564F;--surface:#0F0E0D;--surface-light:#181716;--border:rgba(212,168,75,0.10);--border-hover:rgba(212,168,75,0.28);--radius:16px;--ease:cubic-bezier(0.22,1,0.36,1)}
 html{scroll-behavior:smooth;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--gold-dark) var(--bg)}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.splash-active{overflow:hidden}
 body::before{content:'';position:fixed;inset:0;opacity:0.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* SPLASH SCREEN */
+.splash{position:fixed;inset:0;z-index:10000;background:#030303;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s ease,visibility .8s ease}
+.splash.done{opacity:0;visibility:hidden;pointer-events:none}
+.splash-logo{width:140px;height:auto;opacity:0;filter:brightness(0);animation:flicker 2.8s ease forwards}
+.splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,75,.12),transparent 70%);opacity:0;animation:glowPulse 2.8s ease forwards;pointer-events:none}
+.splash-text{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:28px;animation:splashTextIn 1s 2.2s ease forwards}
+
+/* Broken lightbulb flicker — starts dark, blinks erratically, then holds steady */
+@keyframes flicker{
+  0%{opacity:0;filter:brightness(0)}
+  /* first weak flash */
+  8%{opacity:.15;filter:brightness(.6) drop-shadow(0 0 4px rgba(212,168,75,.2))}
+  12%{opacity:0;filter:brightness(0)}
+  /* second flash, slightly stronger */
+  20%{opacity:.3;filter:brightness(.8) drop-shadow(0 0 8px rgba(212,168,75,.3))}
+  23%{opacity:.05;filter:brightness(.1)}
+  25%{opacity:.35;filter:brightness(.9) drop-shadow(0 0 10px rgba(212,168,75,.3))}
+  28%{opacity:0;filter:brightness(0)}
+  /* rapid double-flicker */
+  35%{opacity:.5;filter:brightness(1) drop-shadow(0 0 12px rgba(212,168,75,.4))}
+  37%{opacity:.1;filter:brightness(.2)}
+  39%{opacity:.6;filter:brightness(1) drop-shadow(0 0 14px rgba(212,168,75,.4))}
+  42%{opacity:0;filter:brightness(0)}
+  /* longer pause in darkness */
+  50%{opacity:0;filter:brightness(0)}
+  /* comes back stuttering */
+  55%{opacity:.4;filter:brightness(.8) drop-shadow(0 0 10px rgba(212,168,75,.3))}
+  57%{opacity:.1;filter:brightness(.2)}
+  60%{opacity:.7;filter:brightness(1) drop-shadow(0 0 20px rgba(212,168,75,.5))}
+  62%{opacity:.2;filter:brightness(.3)}
+  /* catches and holds */
+  68%{opacity:.85;filter:brightness(1.1) drop-shadow(0 0 30px rgba(212,168,75,.5))}
+  72%{opacity:.7;filter:brightness(1) drop-shadow(0 0 24px rgba(212,168,75,.4))}
+  78%{opacity:1;filter:brightness(1.15) drop-shadow(0 0 40px rgba(212,168,75,.6))}
+  /* fully on, warm glow */
+  100%{opacity:1;filter:brightness(1.05) drop-shadow(0 0 50px rgba(212,168,75,.4))}
+}
+@keyframes glowPulse{
+  0%{opacity:0;transform:scale(.5)}
+  8%{opacity:.1;transform:scale(.6)}12%{opacity:0;transform:scale(.5)}
+  20%{opacity:.15;transform:scale(.7)}23%{opacity:0}
+  35%{opacity:.2;transform:scale(.8)}37%{opacity:.05}39%{opacity:.25}42%{opacity:0}
+  50%{opacity:0}
+  60%{opacity:.3;transform:scale(.9)}62%{opacity:.1}
+  68%{opacity:.5;transform:scale(1)}72%{opacity:.4}
+  78%{opacity:.7;transform:scale(1.1)}
+  100%{opacity:.5;transform:scale(1);filter:blur(40px)}
+}
+@keyframes splashTextIn{
+  from{opacity:0;transform:translateY(10px);letter-spacing:10px}
+  to{opacity:.6;transform:translateY(0);letter-spacing:6px}
+}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;transition:all .5s var(--ease);background:rgba(6,6,6,.4);backdrop-filter:blur(12px)}
@@ -200,7 +254,14 @@ footer{padding:60px 48px;text-align:center;border-top:1px solid var(--border)}
 @media(max-width:768px){.section{padding:80px 24px}nav{padding:16px 24px}nav.scrolled{padding:12px 24px}.nav-links{display:none}.services-grid,.team-grid,.reviews-grid{grid-template-columns:1fr}.review-cta{flex-direction:column}.cta-apps{flex-direction:column;align-items:center}footer{padding:40px 24px}.hero-logo img{height:60px}.photo-strip img{height:160px}}
 </style>
 </head>
-<body>
+<body class="splash-active">
+
+<!-- SPLASH SCREEN -->
+<div class="splash" id="splash">
+  <div class="splash-glow"></div>
+  <img class="splash-logo" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers">
+  <p class="splash-text">Cherry Hill, NJ</p>
+</div>
 
 <nav id="navbar">
   <a href="#" class="nav-logo"><img src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></a>
@@ -437,6 +498,9 @@ function onScroll(){const y=window.scrollY,vh=window.innerHeight;hL.forEach((l,i
 window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.transform=`translateY(-6px) perspective(800px) rotateY(${((e.clientX-r.left)/r.width-.5)*4}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*4}deg)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})});
+
+// Splash screen — dismiss after flicker animation completes
+setTimeout(()=>{const s=document.getElementById('splash');s.classList.add('done');document.body.classList.remove('splash-active');setTimeout(()=>s.remove(),1000)},3800);
 </script>
 </body>
 </html>
