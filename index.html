@@ -683,6 +683,10 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 </footer>
 
 <script>
+// Force scroll to top on every page load/refresh
+history.scrollRestoration='manual';
+window.scrollTo(0,0);
+
 const nav=document.getElementById('navbar');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)},{passive:true});
 
 // Hamburger menu
@@ -743,37 +747,38 @@ if(closeBtn){closeBtn.addEventListener('click',()=>{document.getElementById('ham
   const declineBtn=document.getElementById('callDecline');
   if(!phone||!callScreen)return;
 
-  // Vibrate when phone scrolls into view
-  let vibrated=false;
-  const phoneObs=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting&&!vibrated){
-        vibrated=true;
-        setTimeout(()=>{phone.classList.add('vibrate')},400);
-        setTimeout(()=>{phone.classList.remove('vibrate')},1200);
-        // Second vibrate burst
-        setTimeout(()=>{phone.classList.add('vibrate')},2000);
-        setTimeout(()=>{phone.classList.remove('vibrate')},2800);
-      }
-    });
-  },{threshold:.3});
-  phoneObs.observe(phone);
+  let triggered=false;
+  let autoTimer=null;
 
   function answerCall(){
-    callScreen.classList.add('hide');
-    bookScreen.classList.add('show');
-  }
-  function declineCall(){
-    // Decline just goes straight to booking too
+    if(autoTimer)clearTimeout(autoTimer);
     callScreen.classList.add('hide');
     bookScreen.classList.add('show');
   }
 
   acceptBtn.addEventListener('click',answerCall);
-  declineBtn.addEventListener('click',declineCall);
+  declineBtn.addEventListener('click',answerCall);
 
-  // Auto-answer after 4 seconds if user doesn't tap
-  setTimeout(answerCall,4500);
+  // Only start ringing when phone scrolls into view
+  const phoneObs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting&&!triggered){
+        triggered=true;
+        // First vibrate after a beat
+        setTimeout(()=>{phone.classList.add('vibrate')},800);
+        setTimeout(()=>{phone.classList.remove('vibrate')},1600);
+        // Second vibrate
+        setTimeout(()=>{phone.classList.add('vibrate')},2400);
+        setTimeout(()=>{phone.classList.remove('vibrate')},3200);
+        // Third vibrate
+        setTimeout(()=>{phone.classList.add('vibrate')},4000);
+        setTimeout(()=>{phone.classList.remove('vibrate')},4800);
+        // Auto-answer after 7 seconds
+        autoTimer=setTimeout(answerCall,7000);
+      }
+    });
+  },{threshold:.4});
+  phoneObs.observe(phone);
 })();
 </script>
 </body>
