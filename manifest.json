@@ -2,7 +2,7 @@
   "name": "Babylon Barbers",
   "short_name": "Babylon",
   "description": "Premium barbershop in Cherry Hill, NJ",
-  "start_url": "/Babylon-Barbers/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#151632",
   "theme_color": "#151632",
