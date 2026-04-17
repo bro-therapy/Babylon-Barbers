@@ -402,7 +402,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 
 /* RESPONSIVE */
 @media(max-width:1024px){.about-grid,.hours-cta-grid,.map-grid{grid-template-columns:1fr}.services-grid{grid-template-columns:1fr 1fr}.team-grid,.reviews-grid{grid-template-columns:1fr 1fr}.map-embed{min-height:300px}}
-@media(max-width:768px){.section{padding:80px 24px}nav{padding:16px 24px}nav.scrolled{padding:12px 24px}.nav-links{display:none}.hamburger{display:flex}.mobile-menu{display:flex}.services-grid,.team-grid,.reviews-grid{grid-template-columns:1fr}.review-cta{flex-direction:column}.cta-apps{flex-direction:column;align-items:center}footer{padding:40px 20px 32px}.footer-links{gap:16px}.hero-logo img{height:80px}.photo-strip img{height:160px}}
+@media(max-width:768px){.section{padding:80px 24px}nav{padding:16px 24px}nav.scrolled{padding:12px 24px}.nav-links{display:none}.hamburger{display:flex}.mobile-menu{display:flex}.services-grid,.team-grid,.reviews-grid{grid-template-columns:1fr}.review-cta{flex-direction:column}.cta-apps{flex-direction:column;align-items:center}footer{padding:40px 20px 32px}.footer-links{gap:16px}.hero-logo img{height:80px}.photo-strip img{height:160px}.hero{min-height:100svh}.hero-title{letter-spacing:-1px}.hero-contact-item{font-size:11px}.hero-sub{font-size:14px}.about-stats{gap:16px}.stat-item{padding:20px}.stat-number{font-size:32px}.hero-actions{gap:12px}.btn-primary{padding:16px 32px;font-size:13px}.btn-secondary{padding:14px 28px;font-size:12px}.about-title{margin-bottom:20px}.splash-info{font-size:10px}.marquee-item{font-size:16px}}
 </style>
 </head>
 <body class="splash-active">
@@ -475,7 +475,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
       <div class="stat-item reveal" style="transition-delay:.3s"><div class="stat-number" data-count="6">0</div><div class="stat-label">Expert Barbers</div></div>
     </div>
   </div>
-  <div class="about-image-col reveal-right"><div class="about-image"><video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"><source src="images/hero-bg.mp4" type="video/mp4"></video></div><div class="floating-badge">★ Perfect 5.0 Rating</div></div>
+  <div class="about-image-col reveal-right"><div class="about-image"><video autoplay muted loop playsinline webkit-playsinline preload="auto" style="width:100%;height:100%;object-fit:cover"><source src="images/hero-bg.mp4" type="video/mp4"></video></div><div class="floating-badge">★ Perfect 5.0 Rating</div></div>
 </div></div></section>
 
 <!-- SERVICES -->
@@ -698,16 +698,6 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 history.scrollRestoration='manual';
 window.scrollTo(0,0);
 
-// Immediately try to play hero video
-const heroVideo=document.querySelector('.hero-video');
-if(heroVideo){heroVideo.muted=true;heroVideo.play().catch(()=>{});}
-// Retry hero video every second for 10 seconds
-let heroRetries=0;
-const heroInterval=setInterval(()=>{
-  if(heroVideo&&heroVideo.paused){heroVideo.muted=true;heroVideo.play().catch(()=>{});}
-  heroRetries++;if(heroRetries>=10||!heroVideo||!heroVideo.paused)clearInterval(heroInterval);
-},1000);
-
 const nav=document.getElementById('navbar');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)},{passive:true});
 
 // Hamburger menu
@@ -730,27 +720,75 @@ document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.a
     document.body.style.width='';
     document.body.style.top='';
     window.scrollTo(0,0);
-    // Force all videos to play
-    document.querySelectorAll('video').forEach(v=>{v.muted=true;v.play().catch(()=>{})});
     setTimeout(()=>splash.remove(),1000);
   },3800);
 })();
 
-// Force autoplay on all videos when they scroll into view
+// BULLETPROOF VIDEO AUTOPLAY — works on mobile Safari, Chrome, Firefox
 (function(){
-  const videos=document.querySelectorAll('video');
-  const vidObs=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      const v=entry.target;
-      if(entry.isIntersecting){v.play().catch(()=>{})}
-    });
-  },{threshold:.1});
-  videos.forEach(v=>{
-    v.setAttribute('playsinline','');
-    v.setAttribute('muted','');
+  function playVideo(v){
+    if(!v||!v.paused) return;
     v.muted=true;
-    vidObs.observe(v);
-  });
+    v.setAttribute('muted','');
+    v.setAttribute('playsinline','');
+    v.setAttribute('webkit-playsinline','');
+    var p=v.play();
+    if(p&&p.catch) p.catch(function(){});
+  }
+
+  function playAll(){
+    var vids=document.querySelectorAll('video');
+    for(var i=0;i<vids.length;i++) playVideo(vids[i]);
+  }
+
+  // Attempt 1: Play immediately
+  playAll();
+
+  // Attempt 2: Play on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', playAll);
+
+  // Attempt 3: Play on window load
+  window.addEventListener('load', playAll);
+
+  // Attempt 4: Play after splash clears
+  setTimeout(playAll, 4000);
+  setTimeout(playAll, 5000);
+
+  // Attempt 5: Play on any user interaction (first touch/click)
+  var interacted=false;
+  function onInteract(){
+    if(interacted) return;
+    interacted=true;
+    playAll();
+    document.removeEventListener('touchstart',onInteract);
+    document.removeEventListener('click',onInteract);
+    document.removeEventListener('scroll',onInteract);
+  }
+  document.addEventListener('touchstart',onInteract,{passive:true});
+  document.addEventListener('click',onInteract);
+  document.addEventListener('scroll',onInteract,{passive:true});
+
+  // Attempt 6: IntersectionObserver — play when visible, pause when not
+  if('IntersectionObserver' in window){
+    var vidObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting) playVideo(entry.target);
+      });
+    },{threshold:0.05});
+    var vids=document.querySelectorAll('video');
+    for(var i=0;i<vids.length;i++) vidObs.observe(vids[i]);
+  }
+
+  // Attempt 7: Retry loop for hero specifically
+  var hero=document.querySelector('.hero-video');
+  if(hero){
+    var retries=0;
+    var interval=setInterval(function(){
+      playVideo(hero);
+      retries++;
+      if(retries>=15||!hero.paused) clearInterval(interval);
+    },1000);
+  }
 })();
 
 // Count-up animation for stat numbers
