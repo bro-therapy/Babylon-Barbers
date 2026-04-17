@@ -118,13 +118,15 @@ body::before{content:'';position:fixed;inset:0;opacity:0.012;background-image:ur
 @keyframes orbFloat3{0%,100%{transform:translate(0,0)}25%{transform:translate(-60px,-40px)}50%{transform:translate(40px,60px)}75%{transform:translate(70px,-30px)}}
 
 /* SPLASH SCREEN */
-.splash{position:fixed;inset:0;z-index:10000;background:#0e0f24;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s ease,visibility .8s ease}
+.splash{position:fixed;inset:0;z-index:10000;background:#0e0f24;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s ease,visibility .8s ease;cursor:pointer}
 .splash.done{opacity:0;visibility:hidden;pointer-events:none}
-.splash-logo{width:220px;height:auto;opacity:0;filter:brightness(0);animation:flicker 2.8s ease forwards}
-.splash-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,75,.12),transparent 70%);opacity:0;pointer-events:none;animation:glowPulse 2.8s ease forwards}
-.splash-text{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:28px;animation:splashTextIn 1s 2.2s ease forwards}
-.splash-info{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--text);opacity:0;margin-top:14px;animation:splashTextIn .8s 2.5s ease forwards;text-align:center;line-height:1.8}
+.splash-logo{width:280px;height:auto;opacity:0;filter:brightness(0);animation:flicker 2.8s ease forwards}
+.splash-glow{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,168,75,.12),transparent 70%);opacity:0;pointer-events:none;animation:glowPulse 2.8s ease forwards}
+.splash-text{font-family:'Space Mono',monospace;font-size:15px;letter-spacing:8px;text-transform:uppercase;color:var(--gold);opacity:0;margin-top:32px;animation:splashTextIn 1s 2.2s ease forwards}
+.splash-info{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:1px;color:var(--text);opacity:0;margin-top:16px;animation:splashTextIn .8s 2.5s ease forwards;text-align:center;line-height:1.8}
 .splash-info,.splash-info *{text-decoration:none!important;color:var(--text)!important;-webkit-text-fill-color:var(--text)!important;pointer-events:none}
+.splash-tap{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(212,168,75,.35);position:absolute;bottom:60px;opacity:0;animation:splashTapPulse 1.8s 2.8s ease-in-out infinite forwards}
+@keyframes splashTapPulse{0%,100%{opacity:.25}50%{opacity:.6}}
 
 /* Broken lightbulb flicker — starts dark, blinks erratically, then holds steady */
 @keyframes flicker{
@@ -416,6 +418,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
     <span>484 E Evesham Rd, Suite 6</span><br>
     <span>(<span>8</span>5<span>6</span>) 2<span>9</span>5–22<span>4</span>4</span>
   </div>
+  <p class="splash-tap">Tap Anywhere</p>
 </div>
 
 <!-- AMBIENT GLOW ORBS -->
@@ -713,9 +716,26 @@ document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.a
 (function(){
   const splash=document.getElementById('splash');
   if(!splash)return;
+  
+  // Make splash itself clickable — any tap during splash counts as user gesture
+  splash.addEventListener('touchstart',function(){
+    document.querySelectorAll('video').forEach(function(v){
+      v.muted=true;v.play().catch(function(){});
+    });
+  },{passive:true});
+  splash.addEventListener('click',function(){
+    document.querySelectorAll('video').forEach(function(v){
+      v.muted=true;v.play().catch(function(){});
+    });
+  });
+
   setTimeout(()=>{
     splash.classList.add('done');
     window.scrollTo(0,0);
+    // Force play after splash goes
+    document.querySelectorAll('video').forEach(function(v){
+      v.muted=true;v.play().catch(function(){});
+    });
     setTimeout(()=>splash.remove(),1000);
   },3800);
 })();
