@@ -104,7 +104,7 @@
 :root{--gold:#D4A84B;--gold-light:#E8D08E;--gold-dark:#B08A30;--bg:#151632;--bg-warm:#1a1b3a;--text:#F0EBE1;--text-dim:#a9a2b4;--text-muted:#7d7894;--surface:#1c1d40;--surface-light:#222350;--border:rgba(212,168,75,0.16);--border-hover:rgba(212,168,75,0.35);--radius:16px;--ease:cubic-bezier(0.22,1,0.36,1)}
 html{scroll-behavior:smooth;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--gold-dark) #151632}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-body.splash-active{position:fixed;width:100%;top:0}
+body.splash-active .splash{pointer-events:auto}
 body::before{content:'';position:fixed;inset:0;opacity:0.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
 
 /* AMBIENT GLOW */
@@ -405,7 +405,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 @media(max-width:768px){.section{padding:80px 24px}nav{padding:16px 24px}nav.scrolled{padding:12px 24px}.nav-links{display:none}.hamburger{display:flex}.mobile-menu{display:flex}.services-grid,.team-grid,.reviews-grid{grid-template-columns:1fr}.review-cta{flex-direction:column}.cta-apps{flex-direction:column;align-items:center}footer{padding:40px 20px 32px}.footer-links{gap:16px}.hero-logo img{height:80px}.photo-strip img{height:160px}.hero{min-height:100svh}.hero-title{letter-spacing:-1px}.hero-contact-item{font-size:11px}.hero-sub{font-size:14px}.about-stats{gap:16px}.stat-item{padding:20px}.stat-number{font-size:32px}.hero-actions{gap:12px}.btn-primary{padding:16px 32px;font-size:13px}.btn-secondary{padding:14px 28px;font-size:12px}.about-title{margin-bottom:20px}.splash-info{font-size:10px}.marquee-item{font-size:16px}}
 </style>
 </head>
-<body class="splash-active">
+<body>
 
 <!-- SPLASH SCREEN -->
 <div class="splash" id="splash">
@@ -440,7 +440,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:1px solid var(--borde
 </div>
 
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto"><source src="images/hero-bg.mp4" type="video/mp4"></video>
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="images/hero-bg.mp4" type="video/mp4"></video>
   <div class="hero-video-overlay"></div>
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -709,85 +709,78 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 document.querySelectorAll('.service-card,.team-card,.stat-item').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.transform=`translateY(-6px) perspective(800px) rotateY(${((e.clientX-r.left)/r.width-.5)*4}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*4}deg)`});c.addEventListener('mouseleave',()=>{c.style.transform=''})});
 
-// Splash screen — autoplay every visit to main page
+// Splash screen
 (function(){
   const splash=document.getElementById('splash');
   if(!splash)return;
   setTimeout(()=>{
     splash.classList.add('done');
-    document.body.classList.remove('splash-active');
-    document.body.style.position='';
-    document.body.style.width='';
-    document.body.style.top='';
     window.scrollTo(0,0);
     setTimeout(()=>splash.remove(),1000);
   },3800);
 })();
 
-// BULLETPROOF VIDEO AUTOPLAY — works on mobile Safari, Chrome, Firefox
+// BULLETPROOF VIDEO AUTOPLAY
 (function(){
-  function playVideo(v){
-    if(!v||!v.paused) return;
+  function forcePlay(v){
+    if(!v) return;
     v.muted=true;
+    v.defaultMuted=true;
     v.setAttribute('muted','');
     v.setAttribute('playsinline','');
     v.setAttribute('webkit-playsinline','');
-    var p=v.play();
-    if(p&&p.catch) p.catch(function(){});
+    v.volume=0;
+    try{var p=v.play();if(p)p.catch(function(){});}catch(e){}
   }
 
-  function playAll(){
-    var vids=document.querySelectorAll('video');
-    for(var i=0;i<vids.length;i++) playVideo(vids[i]);
-  }
+  var hero=document.getElementById('heroVid');
 
-  // Attempt 1: Play immediately
-  playAll();
+  // Play hero NOW
+  forcePlay(hero);
 
-  // Attempt 2: Play on DOMContentLoaded
-  document.addEventListener('DOMContentLoaded', playAll);
-
-  // Attempt 3: Play on window load
-  window.addEventListener('load', playAll);
-
-  // Attempt 4: Play after splash clears
-  setTimeout(playAll, 4000);
-  setTimeout(playAll, 5000);
-
-  // Attempt 5: Play on any user interaction (first touch/click)
-  var interacted=false;
-  function onInteract(){
-    if(interacted) return;
-    interacted=true;
-    playAll();
-    document.removeEventListener('touchstart',onInteract);
-    document.removeEventListener('click',onInteract);
-    document.removeEventListener('scroll',onInteract);
-  }
-  document.addEventListener('touchstart',onInteract,{passive:true});
-  document.addEventListener('click',onInteract);
-  document.addEventListener('scroll',onInteract,{passive:true});
-
-  // Attempt 6: IntersectionObserver — play when visible, pause when not
-  if('IntersectionObserver' in window){
-    var vidObs=new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting) playVideo(entry.target);
-      });
-    },{threshold:0.05});
-    var vids=document.querySelectorAll('video');
-    for(var i=0;i<vids.length;i++) vidObs.observe(vids[i]);
-  }
-
-  // Attempt 7: Retry loop for hero specifically
-  var hero=document.querySelector('.hero-video');
+  // Play on canplay event
   if(hero){
-    var retries=0;
-    var interval=setInterval(function(){
-      playVideo(hero);
-      retries++;
-      if(retries>=15||!hero.paused) clearInterval(interval);
-    },1000);
+    hero.addEventListener('canplay',function(){forcePlay(hero);});
+    hero.addEventListener('loadeddata',function(){forcePlay(hero);});
+    hero.addEventListener('loadedmetadata',function(){forcePlay(hero);});
+  }
+
+  // Play all on load
+  window.addEventListener('load',function(){
+    document.querySelectorAll('video').forEach(function(v){forcePlay(v);});
+  });
+
+  // Play on first interaction
+  var touched=false;
+  function onTouch(){
+    if(touched)return;touched=true;
+    document.querySelectorAll('video').forEach(function(v){forcePlay(v);});
+    document.removeEventListener('touchstart',onTouch);
+    document.removeEventListener('touchend',onTouch);
+    document.removeEventListener('click',onTouch);
+    document.removeEventListener('scroll',onTouch);
+  }
+  document.addEventListener('touchstart',onTouch,{passive:true,once:false});
+  document.addEventListener('touchend',onTouch,{passive:true});
+  document.addEventListener('click',onTouch);
+  document.addEventListener('scroll',onTouch,{passive:true});
+
+  // Retry hero every 500ms for 20 seconds
+  var count=0;
+  var timer=setInterval(function(){
+    forcePlay(hero);
+    count++;
+    if(count>=40||(hero&&!hero.paused))clearInterval(timer);
+  },500);
+
+  // IntersectionObserver for all videos
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting)forcePlay(e.target);
+      });
+    },{threshold:0.01});
+    document.querySelectorAll('video').forEach(function(v){obs.observe(v);});
   }
 })();
 
