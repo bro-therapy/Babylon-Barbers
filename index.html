@@ -146,7 +146,7 @@
 <link rel="dns-prefetch" href="https://s.yimg.com">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="preload" href="images/hero-bg.mp4" as="video" type="video/mp4">
+<link rel="preload" href="images/hero-bg-v2.mp4" as="video" type="video/mp4">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d0e24">
 <title>Babylon Barbers — Cherry Hill, NJ</title>
@@ -251,6 +251,20 @@ nav.scrolled{background:rgba(21,22,50,.95);padding:14px 48px;border-bottom:1px s
 .hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero-video{transform:translateZ(0);position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.3}
 .hero-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(21,22,50,.4) 0%,rgba(21,22,50,.2) 35%,rgba(21,22,50,.4) 65%,rgba(21,22,50,.92) 100%)}
+/* SOUND TOGGLE */
+.sound-toggle{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:120;display:flex;align-items:center;gap:9px;padding:11px 15px;background:rgba(26,28,66,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:999px;color:var(--gold);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:opacity .4s var(--ease),visibility .4s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
+.sound-toggle:hover{border-color:var(--border-hover);background:rgba(26,28,66,.94)}
+.sound-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.sound-toggle svg{width:18px;height:18px;flex:none;display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sound-toggle .st-label{white-space:nowrap;max-width:80px;overflow:hidden;transition:max-width .5s var(--ease),opacity .4s var(--ease),margin-left .5s var(--ease)}
+.sound-toggle.collapsed .st-label{max-width:0;opacity:0;margin-left:-9px}
+.sound-toggle:hover .st-label,.sound-toggle:focus-visible .st-label{max-width:80px;opacity:1;margin-left:0}
+.sound-toggle .icon-sound{display:none}
+.sound-toggle.is-on .icon-sound{display:block}
+.sound-toggle.is-on .icon-muted{display:none}
+.sound-toggle.hidden{opacity:0;visibility:hidden;pointer-events:none}
+@media(max-width:768px){.sound-toggle{right:14px;padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){.sound-toggle,.sound-toggle .st-label{transition:none}}
 .hero-bg{display:none}
 .hero-content{position:relative;z-index:2;text-align:center;padding:80px 24px 0}
 .hero-logo{margin-bottom:32px;opacity:0;animation:fadeUp 1s .3s var(--ease) forwards}.hero-logo img{height:140px}
@@ -489,8 +503,13 @@ footer{padding:60px 48px 40px;text-align:center;border-top:2px solid rgba(212,16
 </div>
 
 <section class="hero">
-  <video class="hero-video" id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="images/hero-bg.mp4" type="video/mp4"></video>
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline webkit-playsinline preload="auto" disablePictureInPicture><source src="images/hero-bg-v2.mp4" type="video/mp4"></video>
   <div class="hero-video-overlay"></div>
+  <button class="sound-toggle hidden" id="soundToggle" type="button" aria-pressed="false" aria-label="Turn video sound on" title="Turn video sound on">
+    <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+    <svg class="icon-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    <span class="st-label">Sound On</span>
+  </button>
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-logo"><img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Babylon-Barbers-Website-Logo.png/:/rs=h:200,cg:true,m/qt=q:95" alt="Babylon Barbers"></div>
@@ -524,7 +543,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:2px solid rgba(212,16
       <div class="stat-item reveal" style="transition-delay:.3s"><div class="stat-number" data-count="4">0</div><div class="stat-label">Expert Barbers</div></div>
     </div>
   </div>
-  <div class="about-image-col reveal-right"><div class="about-image"><video autoplay muted loop playsinline webkit-playsinline preload="auto" style="width:100%;height:100%;object-fit:cover"><source src="images/hero-bg.mp4" type="video/mp4"></video></div><div class="floating-badge">★ Perfect 5.0 Rating</div></div>
+  <div class="about-image-col reveal-right"><div class="about-image"><video autoplay muted loop playsinline webkit-playsinline preload="auto" style="width:100%;height:100%;object-fit:cover"><source src="images/hero-bg-v2.mp4" type="video/mp4"></video></div><div class="floating-badge">★ Perfect 5.0 Rating</div></div>
 </div></div></section>
 
 <!-- SERVICES -->
@@ -544,6 +563,7 @@ footer{padding:60px 48px 40px;text-align:center;border-top:2px solid rgba(212,16
   <div class="section-inner" style="padding:0 48px;margin-bottom:40px"><div class="services-header reveal" style="margin-bottom:0"><p class="about-tag" style="text-align:center">Gallery</p><h2 class="about-title" style="text-align:center;font-size:clamp(30px,4vw,48px)">See the Work.</h2></div></div>
   <!-- ROW 1: Google Business Photos - Haircuts & Shop -->
   <div class="photo-strip scroll-left">
+    <!-- set 1 of 3 -->
     <img loading="lazy" src="https://s.yimg.com/bj/754f/754f9acf90b6e74efe3811b7b893e74e.jpg" alt="Babylon Barbers" style="width:340px">
     <img loading="lazy" src="https://s.yimg.com/bj/2952/2952c1059cd2484d00a14b9a2027d9b5.jpg" alt="Fresh Fade" style="width:340px">
     <img loading="lazy" src="https://s.yimg.com/bj/c198/c198c9cb62e61f59118dd700e596c244.jpg" alt="Precision Cut" style="width:340px">
@@ -552,48 +572,75 @@ footer{padding:60px 48px 40px;text-align:center;border-top:2px solid rgba(212,16
     <img loading="lazy" src="https://s.yimg.com/bj/7b35/7b3580a0ee3145409d70ed6e6660c91c.jpg" alt="Clean Fade" style="width:340px">
     <img loading="lazy" src="https://s.yimg.com/bj/914e/914eb9b9db990254c0c28d845c131728.jpg" alt="Barber at Work" style="width:340px">
     <img loading="lazy" src="https://s.yimg.com/bj/e0c9/e0c9fd0e7fb21e5156fbb5539e1ed502.jpg" alt="Haircut Result" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/754f/754f9acf90b6e74efe3811b7b893e74e.jpg" alt="Babylon Barbers" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/2952/2952c1059cd2484d00a14b9a2027d9b5.jpg" alt="Fresh Fade" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/c198/c198c9cb62e61f59118dd700e596c244.jpg" alt="Precision Cut" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/a478/a47854b2c587eea783c460bd039de909.jpg" alt="Client Style" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/1ca2/1ca27975f74ce15c4e7a8e3b99a17d09.jpg" alt="Barbershop Interior" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/7b35/7b3580a0ee3145409d70ed6e6660c91c.jpg" alt="Clean Fade" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/914e/914eb9b9db990254c0c28d845c131728.jpg" alt="Barber at Work" style="width:340px">
-    <img loading="lazy" src="https://s.yimg.com/bj/e0c9/e0c9fd0e7fb21e5156fbb5539e1ed502.jpg" alt="Haircut Result" style="width:340px">
+    <!-- set 2 of 3 -->
+    <img loading="lazy" src="https://s.yimg.com/bj/754f/754f9acf90b6e74efe3811b7b893e74e.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/2952/2952c1059cd2484d00a14b9a2027d9b5.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/c198/c198c9cb62e61f59118dd700e596c244.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/a478/a47854b2c587eea783c460bd039de909.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/1ca2/1ca27975f74ce15c4e7a8e3b99a17d09.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/7b35/7b3580a0ee3145409d70ed6e6660c91c.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/914e/914eb9b9db990254c0c28d845c131728.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/e0c9/e0c9fd0e7fb21e5156fbb5539e1ed502.jpg" alt="" aria-hidden="true" style="width:340px">
+    <!-- set 3 of 3 -->
+    <img loading="lazy" src="https://s.yimg.com/bj/754f/754f9acf90b6e74efe3811b7b893e74e.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/2952/2952c1059cd2484d00a14b9a2027d9b5.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/c198/c198c9cb62e61f59118dd700e596c244.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/a478/a47854b2c587eea783c460bd039de909.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/1ca2/1ca27975f74ce15c4e7a8e3b99a17d09.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/7b35/7b3580a0ee3145409d70ed6e6660c91c.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/914e/914eb9b9db990254c0c28d845c131728.jpg" alt="" aria-hidden="true" style="width:340px">
+    <img loading="lazy" src="https://s.yimg.com/bj/e0c9/e0c9fd0e7fb21e5156fbb5539e1ed502.jpg" alt="" aria-hidden="true" style="width:340px">
   </div>
   <!-- ROW 2: More Google Business + Service Photos -->
   <div class="photo-strip scroll-right" style="margin-top:12px">
+    <!-- set 1 of 3 -->
     <img loading="lazy" src="https://s.yimg.com/bj/81ab/81abd340d574a3c50d4ed135f21f1ffc.jpg" alt="Shop Atmosphere" style="width:300px">
     <img loading="lazy" src="https://s.yimg.com/bj/8696/8696fc4a70046bb666e65a764fd21d5a.jpg" alt="Grooming Service" style="width:300px">
     <img loading="lazy" src="https://s.yimg.com/bj/fbe4/fbe48a05036852cd1e8a9ee3f7a02cc8.jpg" alt="Beard Trim" style="width:300px">
     <img loading="lazy" src="https://s.yimg.com/bj/7419/74197b231ca15adb94be7c74106dc505.jpg" alt="Styling" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/6183/6183248dacc5f5d79c0c3ca1c49e8573.jpg" alt="Client Cut" style="width:300px">
     <img loading="lazy" src="https://s.yimg.com/bj/c253/c25367351a0fd8af24870b043e300eb6.jpg" alt="Fresh Style" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/e584/e584f6ede991de2be92e4267a795a647.jpg" alt="Barbershop" style="width:300px">
     <img loading="lazy" src="https://s.yimg.com/bj/fcc9/fcc99319cc645ad7992de65687562901.jpg" alt="Final Look" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/81ab/81abd340d574a3c50d4ed135f21f1ffc.jpg" alt="Shop Atmosphere" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/8696/8696fc4a70046bb666e65a764fd21d5a.jpg" alt="Grooming Service" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/fbe4/fbe48a05036852cd1e8a9ee3f7a02cc8.jpg" alt="Beard Trim" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/7419/74197b231ca15adb94be7c74106dc505.jpg" alt="Styling" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/6183/6183248dacc5f5d79c0c3ca1c49e8573.jpg" alt="Client Cut" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/c253/c25367351a0fd8af24870b043e300eb6.jpg" alt="Fresh Style" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/e584/e584f6ede991de2be92e4267a795a647.jpg" alt="Barbershop" style="width:300px">
-    <img loading="lazy" src="https://s.yimg.com/bj/fcc9/fcc99319cc645ad7992de65687562901.jpg" alt="Final Look" style="width:300px">
+    <!-- set 2 of 3 -->
+    <img loading="lazy" src="https://s.yimg.com/bj/81ab/81abd340d574a3c50d4ed135f21f1ffc.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/8696/8696fc4a70046bb666e65a764fd21d5a.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/fbe4/fbe48a05036852cd1e8a9ee3f7a02cc8.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/7419/74197b231ca15adb94be7c74106dc505.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/c253/c25367351a0fd8af24870b043e300eb6.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/fcc9/fcc99319cc645ad7992de65687562901.jpg" alt="" aria-hidden="true" style="width:300px">
+    <!-- set 3 of 3 -->
+    <img loading="lazy" src="https://s.yimg.com/bj/81ab/81abd340d574a3c50d4ed135f21f1ffc.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/8696/8696fc4a70046bb666e65a764fd21d5a.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/fbe4/fbe48a05036852cd1e8a9ee3f7a02cc8.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/7419/74197b231ca15adb94be7c74106dc505.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/c253/c25367351a0fd8af24870b043e300eb6.jpg" alt="" aria-hidden="true" style="width:300px">
+    <img loading="lazy" src="https://s.yimg.com/bj/fcc9/fcc99319cc645ad7992de65687562901.jpg" alt="" aria-hidden="true" style="width:300px">
   </div>
   <!-- ROW 3: Service-specific photos from original site -->
   <div class="photo-strip scroll-left" style="margin-top:12px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:500,h:280,cg:true,m" alt="Premium Fade Close-Up" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:500,h:280,cg:true" alt="Standard Cut" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/rs=w:500,h:280,cg:true,m" alt="Kids Fade" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Lucca%20Website%20Photo.jpg/:/rs=w:500,h:280,cg:true" alt="Young Client" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:500,h:280,cg:true" alt="Beard Shaping" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:500,h:280,cg:true" alt="Eyebrow Threading" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Men%20Facials.jpg/:/rs=w:500,h:280,cg:true,m" alt="Men's Facial" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/blob-969b28d.png/:/rs=w:500,h:280,cg:true" alt="Premium Facial" style="width:380px">
+    <!-- set 1 of 3 -->
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:900,h:520,cg:true,m" alt="Premium Fade Close-Up" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:900,h:520,cg:true" alt="Standard Cut" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:900,h:520,cg:true" alt="Beard Shaping" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:900,h:520,cg:true" alt="Eyebrow Threading" style="width:380px">
     <img loading="lazy" src="images/team-mo.jpg" alt="Mo Working" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:10%25,l:10%25,w:80%25,h:70%25/rs=w:500,h:280,cg:true,m" alt="Fade Detail" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:20%25,l:0%25,w:100%25,h:60%25/rs=w:500,h:280,cg:true" alt="Cut Detail" style="width:380px">
-    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Website%20Client%20Kid%20Fade.jpg/:/cr=t:5%25,l:0%25,w:100%25,h:70%25/rs=w:500,h:280,cg:true,m" alt="Kid Fade Detail" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:10%25,l:10%25,w:80%25,h:70%25/rs=w:900,h:520,cg:true,m" alt="Fade Detail" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:20%25,l:0%25,w:100%25,h:60%25/rs=w:900,h:520,cg:true" alt="Cut Detail" style="width:380px">
+    <!-- set 2 of 3 -->
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:900,h:520,cg:true,m" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="images/team-mo.jpg" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:10%25,l:10%25,w:80%25,h:70%25/rs=w:900,h:520,cg:true,m" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:20%25,l:0%25,w:100%25,h:60%25/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <!-- set 3 of 3 -->
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/rs=w:900,h:520,cg:true,m" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Longer%20Beard%20Shaping.jpeg/:/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/Eyebrow%20Threading.webp/:/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="images/team-mo.jpg" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/ACA907D4-01DC-4564-8B1B-548F2E390D5A.jpeg/:/cr=t:10%25,l:10%25,w:80%25,h:70%25/rs=w:900,h:520,cg:true,m" alt="" aria-hidden="true" style="width:380px">
+    <img loading="lazy" src="https://img1.wsimg.com/isteam/ip/c6a06a86-f6b2-455f-8252-2116415e3a65/080304E8-5955-46A9-8B03-7706A9B1A6C1.jpeg/:/cr=t:20%25,l:0%25,w:100%25,h:60%25/rs=w:900,h:520,cg:true" alt="" aria-hidden="true" style="width:380px">
   </div>
 </section>
 
@@ -764,12 +811,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
   // Make splash itself clickable — any tap during splash counts as user gesture
   splash.addEventListener('touchstart',function(){
     document.querySelectorAll('video').forEach(function(v){
-      v.muted=true;v.play().catch(function(){});
+      if(!v.wantsSound){v.muted=true;}v.play().catch(function(){});
     });
   },{passive:true});
   splash.addEventListener('click',function(){
     document.querySelectorAll('video').forEach(function(v){
-      v.muted=true;v.play().catch(function(){});
+      if(!v.wantsSound){v.muted=true;}v.play().catch(function(){});
     });
   });
 
@@ -778,7 +825,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
     window.scrollTo(0,0);
     // Force play after splash goes
     document.querySelectorAll('video').forEach(function(v){
-      v.muted=true;v.play().catch(function(){});
+      if(!v.wantsSound){v.muted=true;}v.play().catch(function(){});
     });
     setTimeout(()=>splash.remove(),1000);
   },3800);
@@ -788,7 +835,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
 (function(){
   function forcePlay(v){
     if(!v||!v.paused) return;
-    v.muted=true;
+    if(!v.wantsSound){v.muted=true;}
     try{v.play().catch(function(){});}catch(e){}
   }
 
@@ -816,6 +863,98 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click'
   setTimeout(function(){forcePlay(hero)},4000);
   setTimeout(function(){forcePlay(hero)},5000);
   setTimeout(function(){forcePlay(hero)},6000);
+})();
+
+// HERO SOUND TOGGLE
+(function(){
+  var vid=document.getElementById('heroVid');
+  var btn=document.getElementById('soundToggle');
+  var heroEl=document.querySelector('.hero');
+  if(!vid||!btn)return;
+
+  var VOLUME=0.45;        // audio is mastered to -18 LUFS; this lands as background level
+  var soundOn=false;
+  var heroVisible=true;
+  var fade=null;
+  var revealed=false;
+
+  vid.volume=VOLUME;
+  vid.wantsSound=false;   // read by the autoplay helpers above so they stop re-muting
+
+  function paint(){
+    var action=soundOn?'Mute video sound':'Turn video sound on';
+    btn.classList.toggle('is-on',soundOn);
+    btn.querySelector('.st-label').textContent=soundOn?'Mute':'Sound On';
+    btn.setAttribute('aria-pressed',soundOn?'true':'false');
+    btn.setAttribute('aria-label',action);
+    btn.setAttribute('title',action);
+  }
+
+  function updateVisibility(){
+    btn.classList.toggle('hidden',!revealed||(!heroVisible&&!soundOn));
+  }
+
+  // Only show the button once we know the video actually carries audio,
+  // so it never appears as a dead control. Fails open when undetectable.
+  function audioCheck(){
+    if(revealed)return;
+    var verdict=null;
+    if(typeof vid.webkitAudioDecodedByteCount!=='undefined'&&vid.currentTime>0){
+      verdict=vid.webkitAudioDecodedByteCount>0;
+    }else if(typeof vid.mozHasAudio!=='undefined'){
+      verdict=vid.mozHasAudio;
+    }else if(vid.audioTracks&&typeof vid.audioTracks.length==='number'){
+      verdict=vid.audioTracks.length>0;
+    }
+    if(verdict===false)return;   // confidently silent — leave the button hidden
+    revealed=true;
+    updateVisibility();
+    setTimeout(function(){btn.classList.add('collapsed');},6000);
+  }
+  vid.addEventListener('loadeddata',function(){setTimeout(audioCheck,1200);});
+  setTimeout(audioCheck,3000);
+  setTimeout(audioCheck,7000);
+
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    soundOn=!soundOn;
+    vid.wantsSound=soundOn;
+    if(fade){clearInterval(fade);fade=null;}
+    if(soundOn){
+      // Ease the volume up over ~700ms so it never cuts in abruptly.
+      vid.volume=0;
+      vid.muted=false;
+      try{vid.play().catch(function(){});}catch(err){}
+      var step=0;
+      fade=setInterval(function(){
+        step++;
+        vid.volume=Math.min(VOLUME,VOLUME*(step/14));
+        if(step>=14){clearInterval(fade);fade=null;}
+      },50);
+    }else{
+      vid.muted=true;
+      vid.volume=VOLUME;
+    }
+    paint();
+    updateVisibility();
+  });
+
+  // Keep the control reachable: visible over the hero, and anywhere on the
+  // page while sound is playing so it can always be switched off.
+  if('IntersectionObserver' in window&&heroEl){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(en){heroVisible=en.isIntersecting;});
+      updateVisibility();
+    },{threshold:0.12}).observe(heroEl);
+  }
+
+  // Drop the sound if the tab goes to the background.
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden&&soundOn){vid.muted=true;}
+    else if(!document.hidden&&soundOn){vid.muted=false;vid.volume=VOLUME;}
+  });
+
+  paint();
 })();
 
 // Count-up animation for stat numbers
